@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DevLearn</title>
+  <title>Document</title>
   <style>
     :root {
       --primary: #2563EB;
@@ -19,7 +19,7 @@
       --success: #10B981;
       --warning: #F59E0B;
       --danger: #EF4444;
-      --sw: 240px
+      --sw: 245px
     }
 
     * {
@@ -33,9 +33,11 @@
       background: var(--bg);
       color: var(--text);
       display: flex;
-      min-height: 100vh
+      min-height: 100vh;
+      font-size: 15px
     }
 
+    /* ── SIDEBAR ── */
     .sidebar {
       width: var(--sw);
       background: var(--sidebar);
@@ -47,45 +49,53 @@
       left: 0;
       top: 0;
       z-index: 200;
-      transition: transform .3s
+      transition: transform .3s ease;
+      overflow-y: auto
     }
 
     .brand {
-      padding: 22px 20px;
-      font-size: 1.2rem;
+      padding: 22px 18px;
+      font-size: 1.15rem;
       font-weight: 700;
       display: flex;
       align-items: center;
       gap: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, .1)
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+      flex-shrink: 0
     }
 
     .brand i {
-      color: var(--primary)
+      color: var(--primary);
+      font-size: 18px
     }
 
     .nav-links {
       list-style: none;
-      padding: 16px 8px;
-      flex-grow: 1;
-      overflow-y: auto
+      padding: 14px 8px;
+      flex-grow: 1
     }
 
     .nav-links li {
-      margin-bottom: 4px
+      margin-bottom: 3px
     }
 
     .nav-links a {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 11px;
       padding: 10px 14px;
       color: #94A3B8;
       text-decoration: none;
       border-radius: 10px;
       transition: all .2s;
-      font-size: .9rem;
+      font-size: .88rem;
       font-weight: 500
+    }
+
+    .nav-links a i {
+      font-size: 14px;
+      width: 16px;
+      text-align: center
     }
 
     .nav-links a:hover,
@@ -99,35 +109,46 @@
     }
 
     .user-mini {
-      padding: 16px;
+      padding: 15px 16px;
       border-top: 1px solid rgba(255, 255, 255, .1);
       display: flex;
       align-items: center;
-      gap: 10px
+      gap: 10px;
+      flex-shrink: 0
     }
 
     .user-mini img {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid var(--primary)
+      border: 2px solid var(--primary);
+      flex-shrink: 0
     }
 
-    .user-mini div {
-      font-size: .85rem
+    .user-mini .u-info {
+      font-size: .84rem;
+      min-width: 0
+    }
+
+    .user-mini .u-info strong {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
     }
 
     .user-mini small {
       color: #64748B;
-      font-size: .75rem
+      font-size: .73rem
     }
 
+    /* ── OVERLAY ── */
     .overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, .4);
+      background: rgba(0, 0, 0, .45);
       z-index: 150
     }
 
@@ -135,36 +156,64 @@
       display: block
     }
 
+    /* ── MAIN ── */
     .main {
       margin-left: var(--sw);
       flex-grow: 1;
-      padding: 24px;
-      width: calc(100% - var(--sw));
-      transition: margin .3s, width .3s
+      padding: 26px;
+      width: calc(100% - var(--sw))
     }
 
+    /* ── TOPBAR ── */
     .topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 24px;
-      gap: 12px
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: var(--text);
+      padding: 7px;
+      border-radius: 8px;
+      line-height: 1;
+      flex-shrink: 0
     }
 
     .page-title h1 {
-      font-size: 1.5rem;
-      font-weight: 700
+      font-size: 1.45rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
     }
 
     .page-title p {
       color: var(--muted);
-      font-size: .85rem;
-      margin-top: 2px
+      font-size: .82rem;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
     }
 
     .top-actions {
       display: flex;
-      gap: 10px;
+      gap: 9px;
       flex-shrink: 0
     }
 
@@ -180,43 +229,98 @@
       color: var(--muted);
       cursor: pointer;
       transition: all .2s;
-      position: relative
+      position: relative;
+      font-size: 14px
     }
 
     .icon-btn:hover {
-      color: var(--primary)
+      color: var(--primary);
+      border-color: #BFDBFE
     }
 
     .badge-dot {
       position: absolute;
-      top: 9px;
-      right: 9px;
+      top: 8px;
+      right: 8px;
       width: 7px;
       height: 7px;
       background: var(--danger);
       border-radius: 50%;
-      border: 1px solid #fff
+      border: 1.5px solid #fff
     }
 
-    .hamburger {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.3rem;
-      cursor: pointer;
-      color: var(--text);
-      padding: 6px;
-      border-radius: 8px
+    /* ── QUICK STATS (new row) ── */
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 22px
     }
 
+    .qs-card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 14px 16px;
+      border: 1px solid #E5E7EB;
+      display: flex;
+      align-items: center;
+      gap: 13px
+    }
+
+    .qs-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0
+    }
+
+    .qs-icon.blue {
+      background: #EFF6FF;
+      color: var(--primary)
+    }
+
+    .qs-icon.green {
+      background: #ECFDF5;
+      color: var(--success)
+    }
+
+    .qs-icon.amber {
+      background: #FFFBEB;
+      color: var(--warning)
+    }
+
+    .qs-icon.red {
+      background: #FEF2F2;
+      color: var(--danger)
+    }
+
+    .qs-num {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--text)
+    }
+
+    .qs-lbl {
+      font-size: .72rem;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    /* ── GRID ── */
     .grid {
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 270px 1fr;
       gap: 20px
     }
 
+    /* ── CARDS ── */
     .card {
-      background: #fff;
+      background: var(--card);
       border-radius: 18px;
       padding: 20px;
       border: 1px solid #E5E7EB;
@@ -224,7 +328,7 @@
     }
 
     .card:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, .08)
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .07)
     }
 
     .card-header {
@@ -235,10 +339,11 @@
     }
 
     .card-title {
-      font-size: 1rem;
-      font-weight: 600
+      font-size: .95rem;
+      font-weight: 700
     }
 
+    /* ── PROFILE CARD ── */
     .profile-card {
       grid-row: span 2;
       text-align: center;
@@ -248,34 +353,34 @@
     }
 
     .profile-img {
-      width: 88px;
-      height: 88px;
+      width: 86px;
+      height: 86px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 14px;
+      margin-bottom: 13px;
       border: 3px solid var(--accent)
     }
 
     .profile-name {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 700;
       margin-bottom: 4px
     }
 
     .profile-class {
       color: var(--muted);
-      margin-bottom: 14px;
-      font-size: .9rem
+      margin-bottom: 13px;
+      font-size: .88rem
     }
 
     .status-badge {
       background: #DCFCE7;
       color: #166534;
-      padding: 5px 12px;
+      padding: 5px 13px;
       border-radius: 20px;
-      font-size: .78rem;
-      font-weight: 600;
-      margin-bottom: 20px;
+      font-size: .76rem;
+      font-weight: 700;
+      margin-bottom: 18px;
       display: inline-block
     }
 
@@ -284,7 +389,7 @@
       display: flex;
       justify-content: space-around;
       margin-top: auto;
-      padding-top: 16px;
+      padding-top: 15px;
       border-top: 1px solid #F3F4F6
     }
 
@@ -295,21 +400,22 @@
     }
 
     .stat-item span {
-      font-size: .78rem;
+      font-size: .75rem;
       color: var(--muted)
     }
 
+    /* ── ATTENDANCE ── */
     .att-wrap {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
       flex-wrap: wrap
     }
 
     .progress-circle {
       position: relative;
-      width: 110px;
-      height: 110px;
+      width: 108px;
+      height: 108px;
       border-radius: 50%;
       background: conic-gradient(var(--primary) 0% 92%, #E5E7EB 92% 100%);
       display: flex;
@@ -319,8 +425,8 @@
     }
 
     .progress-inner {
-      width: 82px;
-      height: 82px;
+      width: 80px;
+      height: 80px;
       background: #fff;
       border-radius: 50%;
       display: flex;
@@ -330,27 +436,27 @@
     }
 
     .progress-inner span {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 700
     }
 
     .progress-inner small {
-      font-size: .7rem;
+      font-size: .68rem;
       color: var(--muted)
     }
 
     .att-details {
       flex-grow: 1;
-      min-width: 160px
+      min-width: 140px
     }
 
     .detail-row {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
+      margin-bottom: 9px;
+      padding-bottom: 9px;
       border-bottom: 1px solid #F3F4F6;
-      font-size: .9rem
+      font-size: .86rem
     }
 
     .detail-row:last-child {
@@ -375,17 +481,18 @@
       color: var(--warning)
     }
 
+    /* ── ASSIGNMENTS ── */
     .asgn-list {
       display: flex;
       flex-direction: column;
-      gap: 12px
+      gap: 11px
     }
 
     .asgn-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 11px 12px;
+      padding: 10px 12px;
       background: #F8FAFC;
       border-radius: 11px;
       transition: background .2s;
@@ -399,25 +506,25 @@
     .asgn-info {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 11px;
       min-width: 0
     }
 
     .subj-icon {
-      width: 36px;
-      height: 36px;
+      width: 35px;
+      height: 35px;
       background: var(--accent);
       color: var(--primary);
       border-radius: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
+      font-size: .95rem;
       flex-shrink: 0
     }
 
     .asgn-text h5 {
-      font-size: .9rem;
+      font-size: .86rem;
       font-weight: 600;
       white-space: nowrap;
       overflow: hidden;
@@ -426,7 +533,7 @@
 
     .asgn-text small {
       color: var(--muted);
-      font-size: .78rem
+      font-size: .75rem
     }
 
     .badge-completed {
@@ -434,8 +541,8 @@
       color: #166534;
       padding: 3px 9px;
       border-radius: 20px;
-      font-size: .72rem;
-      font-weight: 600;
+      font-size: .7rem;
+      font-weight: 700;
       white-space: nowrap
     }
 
@@ -444,11 +551,12 @@
       color: #92400E;
       padding: 3px 9px;
       border-radius: 20px;
-      font-size: .72rem;
-      font-weight: 600;
+      font-size: .7rem;
+      font-weight: 700;
       white-space: nowrap
     }
 
+    /* ── TIMETABLE ── */
     .timetable {
       grid-column: 1/-1
     }
@@ -461,30 +569,38 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 520px
+      min-width: 480px
     }
 
     th {
       text-align: left;
-      padding: 10px 14px;
+      padding: 9px 13px;
       color: var(--muted);
-      font-size: .8rem;
-      font-weight: 600;
+      font-size: .77rem;
+      font-weight: 700;
       border-bottom: 2px solid #F3F4F6;
       white-space: nowrap
     }
 
     td {
-      padding: 13px 14px;
-      font-size: .88rem;
+      padding: 12px 13px;
+      font-size: .84rem;
       border-bottom: 1px solid #F3F4F6;
       white-space: nowrap
+    }
+
+    tr:last-child td {
+      border-bottom: none
+    }
+
+    tr:hover td {
+      background: #FAFAFA
     }
 
     .current-day {
       background: var(--accent);
       color: var(--primary);
-      font-weight: 600;
+      font-weight: 700;
       border-radius: 6px
     }
 
@@ -503,16 +619,115 @@
       border-radius: 3px 0 0 3px
     }
 
+    /* ── BOTTOM NAV (mobile) ── */
+    .bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--sidebar);
+      padding: 8px 0 env(safe-area-inset-bottom, 8px);
+      z-index: 199;
+      border-top: 1px solid rgba(255, 255, 255, .08)
+    }
+
+    .bottom-nav ul {
+      display: flex;
+      list-style: none;
+      justify-content: space-around
+    }
+
+    .bottom-nav a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: #64748B;
+      text-decoration: none;
+      font-size: .62rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 8px;
+      transition: color .2s
+    }
+
+    .bottom-nav a.active,
+    .bottom-nav a:hover {
+      color: #fff
+    }
+
+    .bottom-nav a i {
+      font-size: 17px
+    }
+
+    /* ════════════════════════════
+   RESPONSIVE BREAKPOINTS
+════════════════════════════ */
+
+    /* Large tablets / small laptops (≤1200px) */
+    @media(max-width:1200px) {
+      .quick-stats {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    /* Tablets landscape (≤1024px) */
+    @media(max-width:1024px) {
+      :root {
+        --sw: 220px
+      }
+
+      .grid {
+        grid-template-columns: 240px 1fr;
+        gap: 16px
+      }
+
+      .main {
+        padding: 20px
+      }
+    }
+
+    /* Tablets portrait (≤900px) */
     @media(max-width:900px) {
       .grid {
         grid-template-columns: 1fr
       }
 
       .profile-card {
-        grid-row: auto
+        grid-row: auto;
+        flex-direction: row;
+        text-align: left;
+        align-items: center;
+        gap: 18px;
+        padding: 16px
+      }
+
+      .profile-img {
+        margin-bottom: 0;
+        width: 72px;
+        height: 72px
+      }
+
+      .profile-card>div.profile-stats {
+        border-top: none;
+        padding-top: 0;
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+        margin-top: 0
+      }
+
+      .stat-item h4 {
+        font-size: .95rem
+      }
+
+      .profile-card>.status-badge {
+        margin-bottom: 8px
       }
     }
 
+    /* Tablets portrait narrow (≤768px) — sidebar collapses */
     @media(max-width:768px) {
       .sidebar {
         transform: translateX(-100%)
@@ -525,7 +740,8 @@
       .main {
         margin-left: 0;
         width: 100%;
-        padding: 16px
+        padding: 14px;
+        padding-bottom: 80px
       }
 
       .hamburger {
@@ -534,27 +750,108 @@
         justify-content: center
       }
 
-      .timetable {
-        grid-column: auto
+      .bottom-nav {
+        display: block
+      }
+
+      .quick-stats {
+        gap: 10px
+      }
+
+      .qs-card {
+        padding: 12px
+      }
+
+      .qs-num {
+        font-size: 1.1rem
       }
     }
 
-    @media(max-width:480px) {
-      .att-wrap {
-        flex-direction: column;
-        align-items: flex-start
+    /* Large phones (≤600px) */
+    @media(max-width:600px) {
+      .quick-stats {
+        grid-template-columns: repeat(2, 1fr)
       }
 
-      .progress-circle {
-        align-self: center
+      .profile-card {
+        flex-direction: column;
+        text-align: center;
+        align-items: center
+      }
+
+      .profile-img {
+        margin-bottom: 10px
+      }
+
+      .profile-card>.profile-stats {
+        border-top: 1px solid #F3F4F6;
+        padding-top: 14px;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%
+      }
+
+      .att-wrap {
+        flex-direction: column;
+        align-items: center
       }
 
       .att-details {
         width: 100%
       }
 
+      .progress-circle {
+        align-self: center
+      }
+
       .page-title h1 {
         font-size: 1.2rem
+      }
+
+      .top-actions .icon-btn:nth-child(1) {
+        display: none
+      }
+    }
+
+    /* Small phones (≤400px) */
+    @media(max-width:400px) {
+      .quick-stats {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .qs-card {
+        gap: 9px;
+        padding: 10px 11px
+      }
+
+      .qs-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 14px
+      }
+
+      .qs-num {
+        font-size: 1rem
+      }
+
+      .main {
+        padding: 10px;
+        padding-bottom: 80px
+      }
+
+      .page-title h1 {
+        font-size: 1.1rem
+      }
+
+      .profile-img {
+        width: 64px;
+        height: 64px
+      }
+
+      td,
+      th {
+        padding: 9px 10px;
+        font-size: .78rem
       }
 
       .top-actions .icon-btn:not(:last-child) {
@@ -562,12 +859,14 @@
       }
     }
   </style>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
+
   <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 
   <nav class="sidebar" id="sidebar">
@@ -583,14 +882,25 @@
     </ul>
     <div class="user-mini">
       <img src="https://picsum.photos/seed/student1/100/100" alt="User">
-      <div><strong>John Doe</strong><br><small>Grade 10 – A</small></div>
+      <div class="u-info"><strong>John Doe</strong><small>Grade 10 – A</small></div>
     </div>
+  </nav>
+
+  <!-- Mobile bottom nav -->
+  <nav class="bottom-nav">
+    <ul>
+      <li><a href="#" class="active"><i class="fas fa-th-large"></i>Home</a></li>
+      <li><a href="#"><i class="fas fa-book-open"></i>Academics</a></li>
+      <li><a href="#"><i class="fas fa-tasks"></i>Tasks</a></li>
+      <li><a href="#"><i class="fas fa-chart-line"></i>Results</a></li>
+      <li><a href="#"><i class="fas fa-user-graduate"></i>Profile</a></li>
+    </ul>
   </nav>
 
   <main class="main" id="main">
     <header class="topbar">
-      <div style="display:flex;align-items:center;gap:12px">
-        <button class="hamburger" id="menuBtn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+      <div class="topbar-left">
+        <button class="hamburger" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
         <div class="page-title">
           <h1>Dashboard</h1>
           <p>Welcome back, John! Here's your overview.</p>
@@ -603,26 +913,62 @@
       </div>
     </header>
 
+    <!-- Quick stats row -->
+    <div class="quick-stats">
+      <div class="qs-card">
+        <div class="qs-icon blue"><i class="fas fa-calendar-check"></i></div>
+        <div>
+          <div class="qs-num">92%</div>
+          <div class="qs-lbl">Attendance</div>
+        </div>
+      </div>
+      <div class="qs-card">
+        <div class="qs-icon green"><i class="fas fa-star"></i></div>
+        <div>
+          <div class="qs-num">A+</div>
+          <div class="qs-lbl">Current Grade</div>
+        </div>
+      </div>
+      <div class="qs-card">
+        <div class="qs-icon amber"><i class="fas fa-tasks"></i></div>
+        <div>
+          <div class="qs-num">3</div>
+          <div class="qs-lbl">Pending Tasks</div>
+        </div>
+      </div>
+      <div class="qs-card">
+        <div class="qs-icon red"><i class="fas fa-clock"></i></div>
+        <div>
+          <div class="qs-num">2</div>
+          <div class="qs-lbl">Due Today</div>
+        </div>
+      </div>
+    </div>
+
     <div class="grid">
+      <!-- Profile -->
       <div class="card profile-card">
         <img src="https://picsum.photos/seed/student1/200/200" alt="Profile" class="profile-img">
-        <h2 class="profile-name">John Doe</h2>
-        <p class="profile-class">Grade 10 – Section A</p>
-        <span class="status-badge"><i class="fas fa-check-circle"></i> Active Student</span>
-        <div class="profile-stats">
-          <div class="stat-item">
-            <h4>23</h4><span>Roll No</span>
-          </div>
-          <div class="stat-item">
-            <h4>A+</h4><span>Grade</span>
+        <div style="flex:1;min-width:0">
+          <h2 class="profile-name">John Doe</h2>
+          <p class="profile-class">Grade 10 – Section A</p>
+          <span class="status-badge"><i class="fas fa-check-circle"></i> Active Student</span>
+          <div class="profile-stats">
+            <div class="stat-item">
+              <h4>23</h4><span>Roll No</span>
+            </div>
+            <div class="stat-item">
+              <h4>A+</h4><span>Grade</span>
+            </div>
           </div>
         </div>
       </div>
 
+      <!-- Attendance -->
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">Attendance Overview</h3>
-          <i class="fas fa-ellipsis-h" style="color:#9CA3AF;cursor:pointer"></i>
+          <i class="fas fa-ellipsis-h" style="color:#9CA3AF;cursor:pointer;font-size:14px"></i>
         </div>
         <div class="att-wrap">
           <div class="progress-circle">
@@ -639,10 +985,11 @@
         </div>
       </div>
 
+      <!-- Assignments -->
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">Recent Assignments</h3>
-          <a href="#" style="color:var(--primary);text-decoration:none;font-size:.85rem;font-weight:500">View All</a>
+          <a href="#" style="color:var(--primary);text-decoration:none;font-size:.82rem;font-weight:600">View All</a>
         </div>
         <div class="asgn-list">
           <div class="asgn-item">
@@ -675,10 +1022,11 @@
         </div>
       </div>
 
+      <!-- Timetable -->
       <div class="card timetable">
         <div class="card-header">
           <h3 class="card-title">Weekly Timetable</h3>
-          <span style="font-size:.85rem;color:var(--muted)"><i class="fas fa-calendar"></i> March 2025</span>
+          <span style="font-size:.82rem;color:var(--muted)"><i class="fas fa-calendar"></i> March 2025</span>
         </div>
         <div class="tt-wrap">
           <table>
@@ -711,7 +1059,7 @@
               </tr>
               <tr>
                 <td>11:00–11:15</td>
-                <td colspan="5" style="text-align:center;color:var(--muted);font-size:.82rem;font-style:italic">Break
+                <td colspan="5" style="text-align:center;color:var(--muted);font-size:.8rem;font-style:italic">Break
                 </td>
               </tr>
               <tr>
@@ -736,12 +1084,11 @@
       </div>
     </div>
   </main>
+
   <script>
     function toggleSidebar() {
-      const s = document.getElementById('sidebar');
-      const o = document.getElementById('overlay');
-      s.classList.toggle('open');
-      o.classList.toggle('show');
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('overlay').classList.toggle('show');
     }
     function closeSidebar() {
       document.getElementById('sidebar').classList.remove('open');
@@ -751,6 +1098,7 @@
       if (window.innerWidth > 768) closeSidebar();
     });
   </script>
+
 </body>
 
 </html>
