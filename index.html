@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/Logo.png" type="image/x-icon">
+    <title>DevLearn</title>
+    <link rel="stylesheet" href="header-section.css">
+    <link rel="stylesheet" href="hero-section.css">
+    <link rel="stylesheet" href="intro-sec.css">
+    <link rel="stylesheet" href="Academic-section.css">
+    <link rel="stylesheet" href="highlites-section.css">
+    <link rel="stylesheet" href="admission-section.css">
+    <link rel="stylesheet" href="cta-contact-section.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <main>
+        <header>
+            <div class="navbar center">
+
+                <div class="part1 center">
+                    <!-- LOGO -->
+                    <div class="logo center">
+                        <img src="./images/Logo.png" alt="Logo">
+                        <h2>DevLearn School</h2>
+                    </div>
+
+                    <!-- HAMBURGER -->
+                    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+                </div>
+
+                <div class="part2 center">
+                    <!-- NAV -->
+                    <ul class="nav-links center" id="navLinks">
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#intro">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#academics">Academics</a></li>
+                        <li><a href="#admissions">Admissions</a></li>
+                        <li><a href="#" onclick="openLogin()">login</a></li>
+                    </ul>
+                </div>
+
+
+
+            </div>
+        </header>
+        <section class="hero" id="hero">
+
+            <video autoplay muted playsinline>
+                <source
+                    src="https://video-previews.elements.envatousercontent.com/9fe2ec0e-b2e8-4913-87cd-4b64311486c4/watermarked_preview/watermarked_preview.mp4"
+                    type="video/mp4">
+            </video>
+
+            <div class="overlay"></div>
+
+            <div class="hero-content">
+                <h1>Bright Future School</h1>
+                <p>
+                    Inspiring excellence, shaping leaders, and building tomorrow.
+                    Join a community dedicated to innovation, creativity, and lifelong learning — where every student’s
+                    journey matters.
+                </p>
+                <a href="#admissions" class="btn btn-primary">Admissions</a>
+                <a href="#intro" class="btn btn-secondary">About Us</a>
+                <!-- 📊 STATS -->
+                <div class="stats">
+                    <div class="stat">
+                        <h2>1200+</h2>
+                        <span>Students</span>
+                    </div>
+                    <div class="stat">
+                        <h2>50+</h2>
+                        <span>Teachers</span>
+                    </div>
+                    <div class="stat">
+                        <h2>98%</h2>
+                        <span>Success Rate</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="intro-sec center" id="intro">
+            <div class="intro-ctn center">
+                <div class="intro-part1">
+                    <span>Your Knowledge Is Our Priority</span>
+
+                    <h2>
+                        Learn Without Limits <br>
+                        Grow Your <span>Knowledge</span>
+                    </h2>
+
+                    <p>
+                        DevLearn School provides structured learning with experienced faculty
+                        and modern facilities, helping students grow academically and personally.
+                    </p>
+
+                    <a href="#" class="about-btn">Explore Us</a>
+
+                </div>
+                <div class="intro-part2 center">
+                    <div class="shape-ctn center">
+                        <div class="shape-box center">
+                            <div class="box1-part1 background"></div>
+                            <div class="box1-part2"></div>
+                        </div>
+                        <div class="shape-box center">
+                            <div class="box2-part1"></div>
+                            <div class="box2-part2 background"></div>
+                        </div>
+                        <div class="shape-box center">
+                            <div class="box3-part1 background"></div>
+                            <div class="box3-part2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="academic-section" id="academics">
+            <div class="container">
+
+                <!-- 1. Section Header -->
+                <div class="section-header fade-on-scroll">
+                    <span class="subtitle">Our Academics</span>
+                    <h2>Structured Learning for Every Stage</h2>
+                    <p>Our academic programs are thoughtfully designed to nurture intellectual growth, creativity, and
+                        real-world
+                        skills at every stage of a student’s journey.</p>
+                </div>
+
+                <!-- 2. Academic Programs (Core Content) -->
+                <div class="programs-grid">
+
+                    <!-- Program A: Primary Education -->
+                    <article class="program-card fade-on-scroll">
+                        <div class="card-image-wrapper">
+                            <!-- Using Picsum with a specific seed for consistency -->
+                            <img src="https://picsum.photos/seed/primary1/600/400"
+                                alt="Students learning in primary class" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Primary Education</h3>
+                            <p class="card-desc">Focused on building strong foundations through interactive and engaging
+                                learning
+                                methods that develop curiosity and confidence in young learners.</p>
+                            <a href="#" class="card-link">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Program B: Middle School -->
+                    <article class="program-card fade-on-scroll">
+                        <div class="card-image-wrapper">
+                            <img src="https://picsum.photos/seed/middleschool2/600/400"
+                                alt="Students working on science project" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Middle School</h3>
+                            <p class="card-desc">Encourages critical thinking, problem-solving, and conceptual
+                                understanding to prepare
+                                students for advanced academic challenges.</p>
+                            <a href="#" class="card-link">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Program C: Secondary Education -->
+                    <article class="program-card fade-on-scroll">
+                        <div class="card-image-wrapper">
+                            <img src="https://picsum.photos/seed/highschool3/600/400"
+                                alt="High school graduation or exam prep" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Secondary Education</h3>
+                            <p class="card-desc">Provides a structured and career-focused curriculum that equips
+                                students with the
+                                knowledge and skills needed for higher education and future success.</p>
+                            <a href="#" class="card-link">Explore <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- 3. Additional Academic Features -->
+                <div class="features-row">
+
+                    <div class="feature-item fade-on-scroll">
+                        <div class="feature-icon">
+                            <i class="fas fa-chalkboard-user"></i>
+                        </div>
+                        <p class="feature-text">Experienced Faculty – Guided by qualified and dedicated educators.</p>
+                    </div>
+
+                    <div class="feature-item fade-on-scroll">
+                        <div class="feature-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <p class="feature-text">Modern Curriculum – Aligned with global educational standards.</p>
+                    </div>
+
+                    <div class="feature-item fade-on-scroll">
+                        <div class="feature-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <p class="feature-text">Smart Classrooms – Technology-integrated learning environments.</p>
+                    </div>
+
+                    <div class="feature-item fade-on-scroll">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <p class="feature-text">Personalized Learning – Tailored support for every student's growth.</p>
+                    </div>
+
+                </div>
+
+                <!-- 4. Call to Action -->
+                <div class="cta-container fade-on-scroll">
+                    <a href="#" class="btn btn-primary" onclick="handleCta(event)">Explore Academics</a>
+                </div>
+
+            </div>
+        </section>
+        <section class="events-section" id="events">
+            <div class="container">
+
+                <!-- 5. Ticker Bar -->
+                <div class="ticker-wrap">
+                    <div class="ticker">
+                        <div class="ticker-item"><i class="fas fa-bullhorn"></i> Admissions Open Now</div>
+                        <div class="ticker-item"><i class="fas fa-calendar-star"></i> Annual Day on March 15</div>
+                        <div class="ticker-item"><i class="fas fa-trophy"></i> 100% Results Achieved</div>
+                        <div class="ticker-item"><i class="fas fa-flask"></i> Science Exhibition Coming Soon</div>
+                        <div class="ticker-item"><i class="fas fa-music"></i> Cultural Fest Registration Open</div>
+                        <!-- Repeated for seamless loop effect in CSS -->
+                        <div class="ticker-item"><i class="fas fa-bullhorn"></i> Admissions Open Now</div>
+                        <div class="ticker-item"><i class="fas fa-calendar-star"></i> Annual Day on March 15</div>
+                        <div class="ticker-item"><i class="fas fa-trophy"></i> 100% Results Achieved</div>
+                    </div>
+                </div>
+
+                <!-- 1. Section Header -->
+                <div class="section-header fade-on-scroll">
+                    <span class="subtitle">Latest Updates</span>
+                    <h2>Highlights & Events</h2>
+                    <p>Stay updated with the latest happenings, achievements, and important announcements from our
+                        school community.</p>
+                </div>
+
+                <!-- 2. Event Cards Grid -->
+                <div class="events-grid">
+
+                    <!-- Card 1: Event -->
+                    <article class="event-card fade-on-scroll">
+                        <div class="card-image">
+                            <img src="https://picsum.photos/seed/event1/600/400" alt="Annual Day Stage">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-tag tag-event">Event</span>
+                            <div class="card-date"><i class="far fa-calendar-alt"></i> March 15, 2025</div>
+                            <h3 class="card-title">Annual Day Celebration 2025</h3>
+                            <p class="card-desc">A grand celebration showcasing student talents through performances,
+                                music, and cultural activities.</p>
+                            <a href="#" class="card-link">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Card 2: Announcement -->
+                    <article class="event-card fade-on-scroll">
+                        <div class="card-image">
+                            <img src="https://picsum.photos/seed/admissions/600/400" alt="Students studying">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-tag tag-announcement">Announcement</span>
+                            <div class="card-date"><i class="far fa-calendar-alt"></i> February 10, 2025</div>
+                            <h3 class="card-title">Admissions Open for 2025–26</h3>
+                            <p class="card-desc">Enroll now for the upcoming academic session and become part of our
+                                learning community.</p>
+                            <a href="#" class="card-link">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Card 3: Achievement -->
+                    <article class="event-card fade-on-scroll">
+                        <div class="card-image">
+                            <img src="https://picsum.photos/seed/results/600/400" alt="Trophy and Certificates">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-tag tag-achievement">Achievement</span>
+                            <div class="card-date"><i class="far fa-calendar-alt"></i> April 5, 2025</div>
+                            <h3 class="card-title">100% Board Exam Results</h3>
+                            <p class="card-desc">Our students achieved outstanding results with top scores across all
+                                subjects.</p>
+                            <a href="#" class="card-link">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Card 4: Event (Optional) -->
+                    <article class="event-card fade-on-scroll">
+                        <div class="card-image">
+                            <img src="https://picsum.photos/seed/science/600/400" alt="Science Project">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-tag tag-event">Event</span>
+                            <div class="card-date"><i class="far fa-calendar-alt"></i> January 28, 2025</div>
+                            <h3 class="card-title">Science Exhibition 2025</h3>
+                            <p class="card-desc">Students showcased innovative projects and creative scientific models.
+                            </p>
+                            <a href="#" class="card-link">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- 6. Call to Action -->
+                <div class="cta-container fade-on-scroll">
+                    <a href="#" class="btn btn-primary" onclick="handleCta(event)">View All Events</a>
+                </div>
+
+            </div>
+        </section>
+        <section class="admissions-section" id="admissions">
+            <div class="container">
+
+                <!-- 1. Section Header -->
+                <div class="section-header fade-on-scroll">
+                    <span class="subtitle">Admissions</span>
+                    <h2>Join Our Learning Community</h2>
+                    <p>Begin your journey with DevLearn School. Our admission process is simple, transparent, and
+                        designed to help you get started with ease.</p>
+                </div>
+
+                <div class="admissions-grid">
+
+                    <!-- 2. Admission Process (Left Column) -->
+                    <div class="process-container">
+                        <div class="steps-wrapper">
+
+                            <!-- Step 01 -->
+                            <div class="step-card fade-on-scroll">
+                                <div class="step-number">01</div>
+                                <div class="step-content">
+                                    <h3>Application Form</h3>
+                                    <p>Fill out the online application form with student and parent details.</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 02 -->
+                            <div class="step-card fade-on-scroll">
+                                <div class="step-number">02</div>
+                                <div class="step-content">
+                                    <h3>Interaction / Assessment</h3>
+                                    <p>Our team conducts a simple interaction or assessment to understand the student’s
+                                        level.</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 03 -->
+                            <div class="step-card fade-on-scroll">
+                                <div class="step-number">03</div>
+                                <div class="step-content">
+                                    <h3>Document Submission</h3>
+                                    <p>Submit required documents such as previous academic records and ID proof.</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 04 -->
+                            <div class="step-card fade-on-scroll">
+                                <div class="step-number">04</div>
+                                <div class="step-content">
+                                    <h3>Confirmation</h3>
+                                    <p>Receive admission confirmation and complete the enrollment process.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- 5. Side Panel / Info Card (Right Column) -->
+                    <aside class="info-panel fade-on-scroll">
+                        <span class="badge">Admissions Open</span>
+                        <h3 class="academic-year">2025–26</h3>
+                        <p class="panel-desc">Secure your child's future today. Spots fill up quickly for the upcoming
+                            session.</p>
+
+                        <!-- 3. Why Choose Us -->
+                        <ul class="why-choose-list">
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div><strong>Experienced Faculty</strong><br>Dedicated educators guiding every student.
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div><strong>Modern Infrastructure</strong><br>State-of-the-art classrooms and labs.
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div><strong>Student-Centered Learning</strong><br>Focusing on holistic growth.</div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div><strong>Strong Academic Results</strong><br>Consistently high performance.</div>
+                            </li>
+                        </ul>
+
+                        <div style="border-top: 1px solid #E5E7EB; margin: 20px 0;"></div>
+
+                        <div style="margin-bottom: 20px; text-align: left;">
+                            <p style="font-size: 0.9rem; margin-bottom: 5px;"><strong>Contact Admissions:</strong></p>
+                            <p style="font-size: 0.9rem; color: var(--text-dark);"><i class="fas fa-phone-alt"
+                                    style="color: var(--primary-blue); margin-right: 8px;"></i> +1 (555) 123-4567</p>
+                            <p style="font-size: 0.9rem; color: var(--text-dark);"><i class="fas fa-envelope"
+                                    style="color: var(--primary-blue); margin-right: 8px;"></i> admissions@devlearn.edu
+                            </p>
+                        </div>
+
+                        <!-- 4. Call To Action -->
+                        <div class="cta-group">
+                            <a href="#" class="btn btn-primary full-width" onclick="handleApply(event)">Apply Now</a>
+                            <a href="#" class="btn btn-outline full-width" onclick="handleDownload(event)">Download
+                                Brochure</a>
+                        </div>
+
+                        <p class="seats-text">⚠ Limited seats available</p>
+
+                    </aside>
+
+                </div>
+
+            </div>
+        </section>
+        <section class="cta-contact-section" id="contact">
+            <div class="container content-wrapper">
+
+                <!-- 1 & 2. Header & Text -->
+                <div class="section-header fade-on-scroll">
+                    <h2>Start Your Journey With Us Today</h2>
+                    <p>Have questions or ready to apply? Our team is here to guide you every step of the way. Get in
+                        touch with us or begin your admission process today.</p>
+
+                    <!-- 3. CTA Buttons -->
+                    <div class="cta-buttons">
+                        <a href="#" class="btn btn-primary" onclick="handleAction(event, 'application')">Apply Now</a>
+                        <a href="#contact-form" class="btn btn-secondary">Contact Us</a>
+                    </div>
+                </div>
+
+                <div class="contact-grid">
+
+                    <!-- 4. Contact Information -->
+                    <div class="info-card fade-on-scroll">
+                        <div class="info-item">
+                            <div class="icon-box">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Phone</h4>
+                                <p>+91 98765 43210</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="icon-box">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Email</h4>
+                                <p>info@devlearnschool.com</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="icon-box">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Address</h4>
+                                <p>123 Education Street,<br>Knowledge City, India</p>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #F3F4F6;">
+                            <p style="font-size: 0.85rem; color: var(--text-gray);">
+                                <i class="fas fa-clock" style="margin-right: 5px; color: var(--primary-blue);"></i>
+                                Office Hours: Mon - Fri, 8:00 AM - 4:00 PM
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 5. Contact Form -->
+                    <div class="form-card fade-on-scroll" id="contact-form">
+                        <form onsubmit="handleFormSubmit(event)">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" class="form-control" placeholder="Enter your name"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" class="form-control" placeholder="Enter your email"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" class="form-control" placeholder="How can we help you?"
+                                    required></textarea>
+                            </div>
+
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- LOGIN MODAL -->
+        <section class="login-container center" id="loginBox">
+
+            <div class="login-card">
+
+                <!-- CLOSE BUTTON -->
+                <div class="close-btn" onclick="closeLogin()">✖</div>
+
+                <h2>Welcome Back</h2>
+                <p>Login to continue your journey</p>
+
+                <form onsubmit="login(event)">
+
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="Email Address" required>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" id="password" placeholder="Password" required>
+                    </div>
+
+                    <div class="options">
+                        <label>
+                            <input type="checkbox"> Remember me
+                        </label>
+                        <a href="#">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="login-btn">Login</button>
+
+                </form>
+
+                <p class="signup-text">
+                    Don’t have an account?
+                    <a href="#" onclick="switchToSignup()">Sign up</a>
+                </p>
+
+            </div>
+
+        </section>
+        <!-- SIGNUP MODAL -->
+        <section class="login-container" id="signupBox">
+
+            <div class="login-card">
+
+                <!-- CLOSE BUTTON -->
+                <div class="close-btn" onclick="closeSignup()">✖</div>
+
+                <h2>Create Account</h2>
+                <p>Join DevLearn School today</p>
+
+                <form>
+                    <div class="input-group">
+                        <input type="text" placeholder="Full Name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="email" placeholder="Email Address" required>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" placeholder="Password" required>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" placeholder="Confirm Password" required>
+                    </div>
+
+                    <button type="submit" class="login-btn">Sign Up</button>
+                </form>
+
+                <p class="signup-text">
+                    Already have an account?
+                    <a href="#" onclick="switchToLogin()">Login</a>
+                </p>
+
+            </div>
+
+        </section>
+        <footer class="site-footer">
+            <div class="container">
+
+                <div class="footer-grid">
+
+                    <!-- 1. About School -->
+                    <div class="footer-col">
+                        <h3>
+                            <div class="logo center">
+                                <img src="./images/Logo.png" alt="Logo">
+                            </div>
+                            DevLearn School
+                        </h3>
+                        <p class="footer-desc">
+                            DevLearn School is committed to providing quality education, fostering innovation, and
+                            building future leaders through a modern learning environment.
+                        </p>
+                        <!-- 5. Social Media (Placed here for better UX, usually near brand) -->
+                        <div class="social-links">
+                            <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- 2. Quick Links -->
+                    <div class="footer-col">
+                        <h4>Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="#hero">Home</a></li>
+                            <li><a href="#intro">About Us</a></li>
+                            <li><a href="#academics">Academics</a></li>
+                            <li><a href="#admissions">Admissions</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- 3. Important Links -->
+                    <div class="footer-col">
+                        <h4>Information</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">Admission Process</a></li>
+                            <li><a href="#">Events & News</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms & Conditions</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- 4. Contact Info -->
+                    <div class="footer-col">
+                        <h4>Get In Touch</h4>
+
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt contact-icon"></i>
+                            <div class="contact-text">
+                                +91 98765 43210
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <i class="fas fa-envelope contact-icon"></i>
+                            <div class="contact-text">
+                                info@devlearnschool.com
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt contact-icon"></i>
+                            <div class="contact-text">
+                                123 Education Street,<br>
+                                Knowledge City, India
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 6. Bottom Bar (Copyright) -->
+                <div class="footer-bottom">
+                    <p class="copyright-text">
+                        &copy; 2025 <span>DevLearn School</span>. All Rights Reserved. | Designed by DevLearn Team
+                    </p>
+                </div>
+
+            </div>
+        </footer>
+    </main>
+
+    <script src="events.js"></script>
+    <!-- <script src="nav.js"></script> -->
+    <script>
+        const navbar = document.querySelector(".navbar");
+        const hero = document.getElementById("hero");
+
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener("scroll", () => {
+            const currentScroll = window.scrollY;
+            const heroBottom = hero.offsetTop + hero.offsetHeight;
+
+            /* ===== GLASS EFFECT ===== */
+            if (currentScroll > heroBottom - 680) {
+                navbar.classList.add("glass-navbar");
+            } else {
+                navbar.classList.remove("glass-navbar");
+            }
+
+            /* ===== HIDE / SHOW NAVBAR ===== */
+            if (Math.abs(currentScroll - lastScrollY) > 10) {
+
+                if (currentScroll > lastScrollY && currentScroll > 100) {
+                    navbar.classList.add("hide"); // scroll down
+                } else {
+                    navbar.classList.remove("hide"); // scroll up
+                }
+
+            }
+
+            lastScrollY = currentScroll;
+        });
+
+        function login(event) {
+            event.preventDefault();
+
+            const form = event.target;
+
+            const email = form.querySelector('input[type="email"]').value.trim().toLowerCase();
+            const password = form.querySelector('input[type="password"]').value.trim();
+
+            console.log("Email:", email);
+            console.log("Password:", password);
+
+            const users = [
+                { email: "student@gmail.com", password: "1234", role: "student" },
+                { email: "teacher@gmail.com", password: "1234", role: "teacher" },
+                { email: "admin@gmail.com", password: "1234", role: "admin" }
+            ];
+
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                localStorage.setItem("role", user.role);
+
+                const routes = {
+                    student: "student_dashboard_responsive.html",
+                    teacher: "teacher_dashboard_responsive.html",
+                    admin: "devlearn_admin_dashboard.html"
+                };
+
+                window.location.href = routes[user.role];
+
+            } else {
+                alert("Invalid Email or Password");
+            }
+        }
+    </script>
+</body>
+
+</html>
