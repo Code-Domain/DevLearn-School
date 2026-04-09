@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevLearn</title>
+  <style>
+    :root {
+      --primary: #2563EB;
+      --dark-blue: #1E40AF;
+      --accent: #EFF6FF;
+      --bg: #F3F4F6;
+      --sidebar: #1E293B;
+      --card: #fff;
+      --text: #1F2937;
+      --muted: #6B7280;
+      --light: #F1F5F9;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --sw: 240px
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh
+    }
+
+    .sidebar {
+      width: var(--sw);
+      background: var(--sidebar);
+      color: var(--light);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      height: 100vh;
+      left: 0;
+      top: 0;
+      z-index: 200;
+      transition: transform .3s
+    }
+
+    .brand {
+      padding: 22px 20px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, .1)
+    }
+
+    .brand i {
+      color: var(--primary)
+    }
+
+    .nav-links {
+      list-style: none;
+      padding: 16px 8px;
+      flex-grow: 1;
+      overflow-y: auto
+    }
+
+    .nav-links li {
+      margin-bottom: 4px
+    }
+
+    .nav-links a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      color: #94A3B8;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all .2s;
+      font-size: .9rem;
+      font-weight: 500
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: rgba(255, 255, 255, .1);
+      color: #fff
+    }
+
+    .nav-links a.active {
+      border-left: 3px solid var(--primary)
+    }
+
+    .user-mini {
+      padding: 16px;
+      border-top: 1px solid rgba(255, 255, 255, .1);
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .user-mini img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--primary)
+    }
+
+    .user-mini div {
+      font-size: .85rem
+    }
+
+    .user-mini small {
+      color: #64748B;
+      font-size: .75rem
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .4);
+      z-index: 150
+    }
+
+    .overlay.show {
+      display: block
+    }
+
+    .main {
+      margin-left: var(--sw);
+      flex-grow: 1;
+      padding: 24px;
+      width: calc(100% - var(--sw));
+      transition: margin .3s, width .3s
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      gap: 12px
+    }
+
+    .page-title h1 {
+      font-size: 1.5rem;
+      font-weight: 700
+    }
+
+    .page-title p {
+      color: var(--muted);
+      font-size: .85rem;
+      margin-top: 2px
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all .2s;
+      position: relative
+    }
+
+    .icon-btn:hover {
+      color: var(--primary)
+    }
+
+    .badge-dot {
+      position: absolute;
+      top: 9px;
+      right: 9px;
+      width: 7px;
+      height: 7px;
+      background: var(--danger);
+      border-radius: 50%;
+      border: 1px solid #fff
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--text);
+      padding: 6px;
+      border-radius: 8px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 20px;
+      border: 1px solid #E5E7EB;
+      transition: box-shadow .2s
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .08)
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600
+    }
+
+    .profile-card {
+      grid-row: span 2;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center
+    }
+
+    .profile-img {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 14px;
+      border: 3px solid var(--accent)
+    }
+
+    .profile-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 4px
+    }
+
+    .profile-class {
+      color: var(--muted);
+      margin-bottom: 14px;
+      font-size: .9rem
+    }
+
+    .status-badge {
+      background: #DCFCE7;
+      color: #166534;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: .78rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: inline-block
+    }
+
+    .profile-stats {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid #F3F4F6
+    }
+
+    .stat-item h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary)
+    }
+
+    .stat-item span {
+      font-size: .78rem;
+      color: var(--muted)
+    }
+
+    .att-wrap {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap
+    }
+
+    .progress-circle {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: conic-gradient(var(--primary) 0% 92%, #E5E7EB 92% 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .progress-inner {
+      width: 82px;
+      height: 82px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column
+    }
+
+    .progress-inner span {
+      font-size: 1.3rem;
+      font-weight: 700
+    }
+
+    .progress-inner small {
+      font-size: .7rem;
+      color: var(--muted)
+    }
+
+    .att-details {
+      flex-grow: 1;
+      min-width: 160px
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #F3F4F6;
+      font-size: .9rem
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0
+    }
+
+    .detail-label {
+      color: var(--muted)
+    }
+
+    .detail-value {
+      font-weight: 600
+    }
+
+    .text-success {
+      color: var(--success)
+    }
+
+    .text-warning {
+      color: var(--warning)
+    }
+
+    .asgn-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    .asgn-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 12px;
+      background: #F8FAFC;
+      border-radius: 11px;
+      transition: background .2s;
+      gap: 10px
+    }
+
+    .asgn-item:hover {
+      background: #F1F5F9
+    }
+
+    .asgn-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0
+    }
+
+    .subj-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      color: var(--primary);
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0
+    }
+
+    .asgn-text h5 {
+      font-size: .9rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .asgn-text small {
+      color: var(--muted);
+      font-size: .78rem
+    }
+
+    .badge-completed {
+      background: #DCFCE7;
+      color: #166534;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 600;
+      white-space: nowrap
+    }
+
+    .badge-pending {
+      background: #FEF3C7;
+      color: #92400E;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 600;
+      white-space: nowrap
+    }
+
+    .timetable {
+      grid-column: 1/-1
+    }
+
+    .tt-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 520px
+    }
+
+    th {
+      text-align: left;
+      padding: 10px 14px;
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 600;
+      border-bottom: 2px solid #F3F4F6;
+      white-space: nowrap
+    }
+
+    td {
+      padding: 13px 14px;
+      font-size: .88rem;
+      border-bottom: 1px solid #F3F4F6;
+      white-space: nowrap
+    }
+
+    .current-day {
+      background: var(--accent);
+      color: var(--primary);
+      font-weight: 600;
+      border-radius: 6px
+    }
+
+    .current-period {
+      position: relative
+    }
+
+    .current-period::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--primary);
+      border-radius: 3px 0 0 3px
+    }
+
+    @media(max-width:900px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
+
+      .profile-card {
+        grid-row: auto
+      }
+    }
+
+    @media(max-width:768px) {
+      .sidebar {
+        transform: translateX(-100%)
+      }
+
+      .sidebar.open {
+        transform: translateX(0)
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 16px
+      }
+
+      .hamburger {
+        display: flex;
+        align-items: center;
+        justify-content: center
+      }
+
+      .timetable {
+        grid-column: auto
+      }
+    }
+
+    @media(max-width:480px) {
+      .att-wrap {
+        flex-direction: column;
+        align-items: flex-start
+      }
+
+      .progress-circle {
+        align-self: center
+      }
+
+      .att-details {
+        width: 100%
+      }
+
+      .page-title h1 {
+        font-size: 1.2rem
+      }
+
+      .top-actions .icon-btn:not(:last-child) {
+        display: none
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <nav class="sidebar" id="sidebar">
+    <div class="brand"><i class="fas fa-graduation-cap"></i>DevLearn</div>
+    <ul class="nav-links">
+      <li><a href="#" class="active"><i class="fas fa-th-large"></i> Dashboard</a></li>
+      <li><a href="#"><i class="fas fa-user-graduate"></i> My Profile</a></li>
+      <li><a href="#"><i class="fas fa-book-open"></i> Academics</a></li>
+      <li><a href="#"><i class="fas fa-calendar-alt"></i> Timetable</a></li>
+      <li><a href="#"><i class="fas fa-tasks"></i> Assignments</a></li>
+      <li><a href="#"><i class="fas fa-chart-line"></i> Results</a></li>
+      <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+    </ul>
+    <div class="user-mini">
+      <img src="https://picsum.photos/seed/student1/100/100" alt="User">
+      <div><strong>John Doe</strong><br><small>Grade 10 – A</small></div>
+    </div>
+  </nav>
+
+  <main class="main" id="main">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="hamburger" id="menuBtn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        <div class="page-title">
+          <h1>Dashboard</h1>
+          <p>Welcome back, John! Here's your overview.</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn"><i class="fas fa-search"></i></button>
+        <button class="icon-btn"><i class="fas fa-bell"></i><span class="badge-dot"></span></button>
+        <button class="icon-btn"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card profile-card">
+        <img src="https://picsum.photos/seed/student1/200/200" alt="Profile" class="profile-img">
+        <h2 class="profile-name">John Doe</h2>
+        <p class="profile-class">Grade 10 – Section A</p>
+        <span class="status-badge"><i class="fas fa-check-circle"></i> Active Student</span>
+        <div class="profile-stats">
+          <div class="stat-item">
+            <h4>23</h4><span>Roll No</span>
+          </div>
+          <div class="stat-item">
+            <h4>A+</h4><span>Grade</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Attendance Overview</h3>
+          <i class="fas fa-ellipsis-h" style="color:#9CA3AF;cursor:pointer"></i>
+        </div>
+        <div class="att-wrap">
+          <div class="progress-circle">
+            <div class="progress-inner"><span>92%</span><small>Present</small></div>
+          </div>
+          <div class="att-details">
+            <div class="detail-row"><span class="detail-label">Present Days</span><span
+                class="detail-value text-success">180</span></div>
+            <div class="detail-row"><span class="detail-label">Absent Days</span><span
+                class="detail-value text-warning">15</span></div>
+            <div class="detail-row"><span class="detail-label">Total Working Days</span><span
+                class="detail-value">195</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Recent Assignments</h3>
+          <a href="#" style="color:var(--primary);text-decoration:none;font-size:.85rem;font-weight:500">View All</a>
+        </div>
+        <div class="asgn-list">
+          <div class="asgn-item">
+            <div class="asgn-info">
+              <div class="subj-icon"><i class="fas fa-calculator"></i></div>
+              <div class="asgn-text">
+                <h5>Algebra Worksheet</h5><small>Due: Mar 10, 2025</small>
+              </div>
+            </div>
+            <span class="badge-pending">Pending</span>
+          </div>
+          <div class="asgn-item">
+            <div class="asgn-info">
+              <div class="subj-icon" style="background:#FEF3C7;color:#D97706"><i class="fas fa-flask"></i></div>
+              <div class="asgn-text">
+                <h5>Physics Lab Report</h5><small>Due: Mar 08, 2025</small>
+              </div>
+            </div>
+            <span class="badge-completed">Completed</span>
+          </div>
+          <div class="asgn-item">
+            <div class="asgn-info">
+              <div class="subj-icon" style="background:#DCFCE7;color:#15803D"><i class="fas fa-book"></i></div>
+              <div class="asgn-text">
+                <h5>History Essay</h5><small>Due: Mar 15, 2025</small>
+              </div>
+            </div>
+            <span class="badge-pending">Pending</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card timetable">
+        <div class="card-header">
+          <h3 class="card-title">Weekly Timetable</h3>
+          <span style="font-size:.85rem;color:var(--muted)"><i class="fas fa-calendar"></i> March 2025</span>
+        </div>
+        <div class="tt-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>09:00–10:00</td>
+                <td class="current-day current-period">Mathematics</td>
+                <td>English</td>
+                <td>Physics</td>
+                <td>History</td>
+                <td>Computer Sci</td>
+              </tr>
+              <tr>
+                <td>10:00–11:00</td>
+                <td>Physics</td>
+                <td>Mathematics</td>
+                <td>English</td>
+                <td>Biology</td>
+                <td>Physics</td>
+              </tr>
+              <tr>
+                <td>11:00–11:15</td>
+                <td colspan="5" style="text-align:center;color:var(--muted);font-size:.82rem;font-style:italic">Break
+                </td>
+              </tr>
+              <tr>
+                <td>11:15–12:15</td>
+                <td>Chemistry</td>
+                <td>Geography</td>
+                <td>Mathematics</td>
+                <td>English</td>
+                <td>Sports</td>
+              </tr>
+              <tr>
+                <td>12:15–01:15</td>
+                <td>History</td>
+                <td>Biology</td>
+                <td>Art</td>
+                <td>Mathematics</td>
+                <td>Chemistry</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script>
+    function toggleSidebar() {
+      const s = document.getElementById('sidebar');
+      const o = document.getElementById('overlay');
+      s.classList.toggle('open');
+      o.classList.toggle('show');
+    }
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('overlay').classList.remove('show');
+    }
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) closeSidebar();
+    });
+  </script>
+</body>
+
+</html>

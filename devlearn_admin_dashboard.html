@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    :root {
+      --p: #2563EB;
+      --pd: #1E40AF;
+      --pl: #EFF6FF;
+      --sb: #1E293B;
+      --bg: #F3F4F6;
+      --card: #fff;
+      --tx: #1F2937;
+      --mu: #6B7280;
+      --bd: #E5E7EB;
+      --ok: #10B981;
+      --wa: #F59E0B;
+      --er: #EF4444;
+      --sw: 256px
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--tx);
+      display: flex;
+      min-height: 100vh;
+      font-size: 14px
+    }
+
+    .sidebar {
+      width: var(--sw);
+      background: var(--sb);
+      color: #CBD5E1;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      height: 100vh;
+      left: 0;
+      top: 0;
+      z-index: 200;
+      transition: transform .3s
+    }
+
+    .brand {
+      padding: 22px 18px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      border-bottom: 1px solid rgba(255, 255, 255, .08)
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--p);
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .brand-icon i {
+      color: #fff;
+      font-size: 16px
+    }
+
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -.3px
+    }
+
+    .brand-sub {
+      font-size: .68rem;
+      color: #64748B;
+      font-weight: 500;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-top: 1px
+    }
+
+    .nsec {
+      padding: 16px 16px 4px;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: #475569;
+      text-transform: uppercase
+    }
+
+    .nl {
+      list-style: none;
+      padding: 0 8px;
+      flex-grow: 1;
+      overflow-y: auto
+    }
+
+    .nl li {
+      margin-bottom: 2px
+    }
+
+    .nl a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      color: #94A3B8;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all .18s;
+      font-size: .86rem;
+      font-weight: 500;
+      cursor: pointer
+    }
+
+    .nl a i {
+      font-size: 13px;
+      width: 15px;
+      text-align: center
+    }
+
+    .nl a:hover {
+      background: rgba(255, 255, 255, .07);
+      color: #E2E8F0
+    }
+
+    .nl a.active {
+      background: var(--p);
+      color: #fff
+    }
+
+    .admin-card {
+      margin: 10px 10px 14px;
+      background: rgba(255, 255, 255, .05);
+      border-radius: 11px;
+      padding: 13px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255, 255, 255, .07)
+    }
+
+    .adm-av {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--p);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 12px;
+      color: #fff;
+      flex-shrink: 0
+    }
+
+    .adm-info strong {
+      display: block;
+      font-size: .83rem;
+      color: #F1F5F9
+    }
+
+    .adm-info span {
+      font-size: .72rem;
+      color: #64748B
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .4);
+      z-index: 150
+    }
+
+    .overlay.show {
+      display: block
+    }
+
+    .main {
+      margin-left: var(--sw);
+      flex-grow: 1;
+      padding: 24px;
+      width: calc(100% - var(--sw))
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 10px
+    }
+
+    .tl {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .hbg {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--tx);
+      padding: 7px;
+      border-radius: 8px
+    }
+
+    .ptitle {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--tx)
+    }
+
+    .psub {
+      font-size: .78rem;
+      color: var(--mu);
+      margin-top: 1px
+    }
+
+    .tr {
+      display: flex;
+      align-items: center;
+      gap: 9px
+    }
+
+    .ibt {
+      width: 37px;
+      height: 37px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1px solid var(--bd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--mu);
+      cursor: pointer;
+      font-size: 13px;
+      position: relative
+    }
+
+    .ibt:hover {
+      color: var(--p)
+    }
+
+    .dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 7px;
+      height: 7px;
+      background: var(--er);
+      border-radius: 50%;
+      border: 1.5px solid var(--card)
+    }
+
+    .pill-tag {
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 20px;
+      padding: 5px 13px;
+      font-size: .78rem;
+      color: var(--mu);
+      font-weight: 500
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 20px
+    }
+
+    .sc {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 15px 17px;
+      border: 1px solid var(--bd);
+      display: flex;
+      align-items: center;
+      gap: 13px
+    }
+
+    .si {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0
+    }
+
+    .si.b {
+      background: #EFF6FF;
+      color: var(--p)
+    }
+
+    .si.g {
+      background: #ECFDF5;
+      color: var(--ok)
+    }
+
+    .si.a {
+      background: #FFFBEB;
+      color: var(--wa)
+    }
+
+    .si.r {
+      background: #FEF2F2;
+      color: var(--er)
+    }
+
+    .sn {
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--tx)
+    }
+
+    .sl {
+      font-size: .72rem;
+      color: var(--mu);
+      margin-top: 2px
+    }
+
+    .tabs {
+      display: flex;
+      gap: 3px;
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 11px;
+      padding: 4px;
+      margin-bottom: 20px;
+      overflow-x: auto
+    }
+
+    .tab {
+      padding: 7px 15px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: .83rem;
+      font-weight: 600;
+      color: var(--mu);
+      white-space: nowrap;
+      transition: all .18s;
+      border: none;
+      background: none
+    }
+
+    .tab.active {
+      background: var(--p);
+      color: #fff
+    }
+
+    .tab:hover:not(.active) {
+      background: var(--bg)
+    }
+
+    .sec {
+      display: none
+    }
+
+    .sec.on {
+      display: block
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--bd);
+      margin-bottom: 18px
+    }
+
+    .ch {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    .ct {
+      font-size: .93rem;
+      font-weight: 700;
+      color: var(--tx)
+    }
+
+    .btn {
+      padding: 7px 13px;
+      border-radius: 8px;
+      font-size: .8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all .18s
+    }
+
+    .bp {
+      background: var(--p);
+      color: #fff
+    }
+
+    .bp:hover {
+      background: var(--pd)
+    }
+
+    .bo {
+      background: none;
+      border: 1px solid var(--bd);
+      color: var(--tx)
+    }
+
+    .bo:hover {
+      background: var(--bg)
+    }
+
+    .bd2 {
+      background: #FEF2F2;
+      color: var(--er);
+      border: 1px solid #FECACA
+    }
+
+    .bsm {
+      padding: 5px 10px;
+      font-size: .76rem
+    }
+
+    .ctrl {
+      display: flex;
+      gap: 9px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      align-items: center
+    }
+
+    .sb {
+      position: relative;
+      flex: 1;
+      min-width: 150px
+    }
+
+    .sb i {
+      position: absolute;
+      left: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--mu);
+      font-size: 12px
+    }
+
+    .sb input {
+      padding: 7px 10px 7px 28px;
+      width: 100%;
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      font-size: .82rem;
+      background: var(--card);
+      color: var(--tx);
+      outline: none
+    }
+
+    .fsel {
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      padding: 7px 11px;
+      font-size: .82rem;
+      background: var(--card);
+      color: var(--tx);
+      outline: none
+    }
+
+    .tw {
+      overflow-x: auto
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse
+    }
+
+    th {
+      text-align: left;
+      padding: 9px 13px;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--mu);
+      border-bottom: 2px solid var(--bd);
+      white-space: nowrap
+    }
+
+    td {
+      padding: 10px 13px;
+      font-size: .83rem;
+      border-bottom: 1px solid #F9FAFB;
+      vertical-align: middle
+    }
+
+    tr:last-child td {
+      border-bottom: none
+    }
+
+    tr:hover td {
+      background: #FAFAFA
+    }
+
+    .avc {
+      display: flex;
+      align-items: center;
+      gap: 9px
+    }
+
+    .av {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 11px;
+      flex-shrink: 0
+    }
+
+    .av.pu {
+      background: #EDE9FE;
+      color: #5B21B6
+    }
+
+    .av.bl {
+      background: #DBEAFE;
+      color: #1E40AF
+    }
+
+    .av.gr {
+      background: #D1FAE5;
+      color: #065F46
+    }
+
+    .av.am {
+      background: #FEF3C7;
+      color: #92400E
+    }
+
+    .av.re {
+      background: #FEE2E2;
+      color: #991B1B
+    }
+
+    .av.pi {
+      background: #FCE7F3;
+      color: #9D174D
+    }
+
+    .av.te {
+      background: #CCFBF1;
+      color: #0F766E
+    }
+
+    .av.in {
+      background: #E0E7FF;
+      color: #3730A3
+    }
+
+    .av.or {
+      background: #FFF7ED;
+      color: #9A3412
+    }
+
+    .badge {
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: .7rem;
+      font-weight: 700
+    }
+
+    .bg {
+      background: #DCFCE7;
+      color: #166534
+    }
+
+    .by {
+      background: #FEF3C7;
+      color: #92400E
+    }
+
+    .br {
+      background: #FEE2E2;
+      color: #991B1B
+    }
+
+    .bb {
+      background: #DBEAFE;
+      color: #1E40AF
+    }
+
+    .bp2 {
+      background: #EDE9FE;
+      color: #4C1D95
+    }
+
+    .acts {
+      display: flex;
+      gap: 5px
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 16px
+    }
+
+    .fi {
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      padding: 7px 11px;
+      font-size: .83rem;
+      background: var(--card);
+      color: var(--tx);
+      outline: none;
+      width: 100%;
+      font-family: inherit;
+      transition: border-color .2s
+    }
+
+    .fi:focus {
+      border-color: var(--p)
+    }
+
+    .fta {
+      resize: vertical;
+      min-height: 70px
+    }
+
+    .fl {
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--mu);
+      margin-bottom: 4px;
+      display: block
+    }
+
+    .fg {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 12px
+    }
+
+    .fgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    .fgrid .fg {
+      margin-bottom: 0
+    }
+
+    .ann-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px
+    }
+
+    .ann {
+      border-radius: 11px;
+      padding: 14px;
+      border-left: 4px solid var(--p);
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      background: #F8FAFC
+    }
+
+    .ann.warn {
+      border-left-color: var(--wa);
+      background: #FFFBEB
+    }
+
+    .ann.ok {
+      border-left-color: var(--ok);
+      background: #F0FDF4
+    }
+
+    .ann.er {
+      border-left-color: var(--er);
+      background: #FEF2F2
+    }
+
+    .ann-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 5px
+    }
+
+    .ann-title {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--tx)
+    }
+
+    .ann-meta {
+      font-size: .73rem;
+      color: var(--mu);
+      margin-top: 3px
+    }
+
+    .ann-body {
+      font-size: .82rem;
+      color: #374151;
+      line-height: 1.5
+    }
+
+    .sched-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px
+    }
+
+    .day-col .day-hdr {
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--mu);
+      text-align: center;
+      padding: 7px;
+      background: var(--bg);
+      border-radius: 7px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: .05em
+    }
+
+    .slot {
+      border-radius: 9px;
+      padding: 9px 10px;
+      margin-bottom: 7px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all .15s
+    }
+
+    .slot:hover {
+      opacity: .85
+    }
+
+    .slot.math {
+      background: #EFF6FF;
+      border-color: #BFDBFE
+    }
+
+    .slot.phys {
+      background: #ECFDF5;
+      border-color: #A7F3D0
+    }
+
+    .slot.eng {
+      background: #FDF4FF;
+      border-color: #E9D5FF
+    }
+
+    .slot.hist {
+      background: #FFFBEB;
+      border-color: #FDE68A
+    }
+
+    .slot.chem {
+      background: #FFF1F2;
+      border-color: #FECDD3
+    }
+
+    .slot.stat {
+      background: #F0F9FF;
+      border-color: #BAE6FD
+    }
+
+    .slot.empty {
+      background: #F9FAFB;
+      border: 1px dashed #D1D5DB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 62px;
+      cursor: pointer
+    }
+
+    .slot.empty:hover {
+      background: #EFF6FF;
+      border-color: var(--p)
+    }
+
+    .slot-sub {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--tx)
+    }
+
+    .slot-time {
+      font-size: .7rem;
+      color: var(--mu);
+      margin-top: 1px
+    }
+
+    .slot-tchr {
+      font-size: .7rem;
+      margin-top: 3px;
+      color: #6366F1;
+      font-weight: 600
+    }
+
+    .slot-empty-lbl {
+      font-size: .72rem;
+      color: #9CA3AF;
+      font-weight: 600
+    }
+
+    .prog-bar {
+      background: #E5E7EB;
+      border-radius: 20px;
+      height: 6px;
+      margin-top: 4px
+    }
+
+    .prog-fill {
+      height: 100%;
+      border-radius: 20px
+    }
+
+    @media(max-width:1100px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .two {
+        grid-template-columns: 1fr
+      }
+
+      .sched-grid {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+
+    @media(max-width:768px) {
+      .sidebar {
+        transform: translateX(-100%)
+      }
+
+      .sidebar.open {
+        transform: translateX(0)
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 14px
+      }
+
+      .hbg {
+        display: flex;
+        align-items: center
+      }
+
+      .sched-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media(max-width:480px) {
+      .stats {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .fgrid {
+        grid-template-columns: 1fr
+      }
+
+      .sched-grid {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="overlay" id="ov" onclick="closeSB()"></div>
+  <nav class="sidebar" id="sb">
+    <div class="brand">
+      <div class="brand-icon"><i class="fas fa-graduation-cap"></i></div>
+      <div>
+        <div class="brand-name">DevLearn</div>
+        <div class="brand-sub">Admin Portal</div>
+      </div>
+    </div>
+    <ul class="nl" style="margin-top:6px">
+      <li class="nsec">Overview</li>
+      <li><a class="active" onclick="go('students',this)"><i class="fas fa-th-large"></i> Dashboard</a></li>
+      <li class="nsec">Management</li>
+      <li><a onclick="go('students',this)"><i class="fas fa-user-graduate"></i> Students</a></li>
+      <li><a onclick="go('teachers',this)"><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
+      <li><a onclick="go('schedule',this)"><i class="fas fa-calendar-alt"></i> Scheduling</a></li>
+      <li><a onclick="go('announce',this)"><i class="fas fa-bullhorn"></i> Announcements</a></li>
+      <li class="nsec">System</li>
+      <li><a><i class="fas fa-chart-pie"></i> Reports</a></li>
+      <li><a><i class="fas fa-shield-alt"></i> Permissions</a></li>
+      <li><a><i class="fas fa-cog"></i> Settings</a></li>
+    </ul>
+    <div class="admin-card">
+      <div class="adm-av">RA</div>
+      <div class="adm-info"><strong>Robert Adams</strong><span>System Admin</span></div>
+    </div>
+  </nav>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="tl">
+        <button class="hbg" onclick="togSB()"><i class="fas fa-bars"></i></button>
+        <div>
+          <div class="ptitle" id="ptitle">Admin Dashboard</div>
+          <div class="psub" id="psub">DevLearn School Management System</div>
+        </div>
+      </div>
+      <div class="tr">
+        <span class="pill-tag"><i class="fas fa-circle" style="color:#10B981;font-size:7px;margin-right:5px"></i>System
+          Online</span>
+        <div class="ibt"><i class="fas fa-search"></i></div>
+        <div class="ibt"><i class="fas fa-bell"></i><span class="dot"></span></div>
+        <div class="ibt"><i class="fas fa-sign-out-alt"></i></div>
+      </div>
+    </header>
+
+    <div class="stats">
+      <div class="sc">
+        <div class="si b"><i class="fas fa-user-graduate"></i></div>
+        <div>
+          <div class="sn">1,248</div>
+          <div class="sl">Total Students</div>
+        </div>
+      </div>
+      <div class="sc">
+        <div class="si g"><i class="fas fa-chalkboard-teacher"></i></div>
+        <div>
+          <div class="sn">84</div>
+          <div class="sl">Teachers</div>
+        </div>
+      </div>
+      <div class="sc">
+        <div class="si a"><i class="fas fa-layer-group"></i></div>
+        <div>
+          <div class="sn">42</div>
+          <div class="sl">Active Classes</div>
+        </div>
+      </div>
+      <div class="sc">
+        <div class="si r"><i class="fas fa-exclamation-circle"></i></div>
+        <div>
+          <div class="sn">7</div>
+          <div class="sl">Pending Issues</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('students',this)"><i class="fas fa-user-graduate"
+          style="margin-right:5px"></i>Student Management</button>
+      <button class="tab" onclick="showTab('teachers',this)"><i class="fas fa-chalkboard-teacher"
+          style="margin-right:5px"></i>Teacher Management</button>
+      <button class="tab" onclick="showTab('schedule',this)"><i class="fas fa-calendar-alt"
+          style="margin-right:5px"></i>Class Scheduling</button>
+      <button class="tab" onclick="showTab('announce',this)"><i class="fas fa-bullhorn"
+          style="margin-right:5px"></i>Announcements</button>
+    </div>
+
+    <!-- STUDENTS -->
+    <div id="sec-students" class="sec on">
+      <div class="card">
+        <div class="ch">
+          <span class="ct"><i class="fas fa-user-graduate" style="margin-right:6px;color:var(--p)"></i>Student
+            Management</span>
+          <div style="display:flex;gap:8px">
+            <button class="btn bo bsm"><i class="fas fa-download" style="margin-right:4px"></i>Export</button>
+            <button class="btn bp bsm"><i class="fas fa-user-plus" style="margin-right:4px"></i>Add Student</button>
+          </div>
+        </div>
+        <div class="ctrl">
+          <div class="sb"><i class="fas fa-search"></i><input placeholder="Search by name, roll, email..."></div>
+          <select class="fsel">
+            <option>All Grades</option>
+            <option>Grade 9</option>
+            <option>Grade 10</option>
+            <option>Grade 11</option>
+            <option>Grade 12</option>
+          </select>
+          <select class="fsel">
+            <option>All Sections</option>
+            <option>Section A</option>
+            <option>Section B</option>
+            <option>Section C</option>
+          </select>
+          <select class="fsel">
+            <option>All Status</option>
+            <option>Active</option>
+            <option>Inactive</option>
+            <option>At Risk</option>
+          </select>
+        </div>
+        <div class="tw">
+          <table>
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Roll No.</th>
+                <th>Grade</th>
+                <th>Section</th>
+                <th>Attendance</th>
+                <th>GPA</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="avc">
+                    <div class="av pu">AK</div>
+                    <div>
+                      <div style="font-weight:600">Aiden Kumar</div>
+                      <div style="font-size:.72rem;color:var(--mu)">aiden@devlearn.edu</div>
+                    </div>
+                  </div>
+                </td>
+                <td>#1001</td>
+                <td>10</td>
+                <td>A</td>
+                <td>
+                  <div>94%<div class="prog-bar">
+                      <div class="prog-fill" style="width:94%;background:var(--ok)"></div>
+                    </div>
+                  </div>
+                </td>
+                <td style="font-weight:700;color:var(--p)">A</td>
+                <td><span class="badge bg">Active</span></td>
+                <td>
+                  <div class="acts"><button class="btn bo bsm"><i class="fas fa-eye"></i></button><button
+                      class="btn bo bsm"><i class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                        class="fas fa-trash"></i></button></div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="avc">
+                    <div class="av bl">PS</div>
+                    <div>
+                      <div style="font-weight:600">Priya Sharma</div>
+                      <div style="font-size:.72rem;color:var(--mu)">priya@devlearn.edu</div>
+                    </div>
+                  </div>
+                </td>
+                <td>#1002</td>
+                <td>10</td>
+                <td>A</td>
+                <td>
+                  <div>97%<div class="prog-bar">
+                      <div class="prog-fill" style="width:97%;background:var(--ok)"></div>
+                    </div>
+                  </div>
+                </td>
+                <td style="font-weight:700;color:var(--p)">A+</td>
+                <td><span class="badge bg">Active</span></td>
+                <td>
+                  <div class="acts"><button class="btn bo bsm"><i class="fas fa-eye"></i></button><button
+                      class="btn bo bsm"><i class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                        class="fas fa-trash"></i></button></div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="avc">
+                    <div class="av am">MR</div>
+                    <div>
+                      <div style="font-weight:600">Marcus Reid</div>
+                      <div style="font-size:.72rem;color:var(--mu)">marcus@devlearn.edu</div>
+                    </div>
+                  </div>
+                </td>
+                <td>#1003</td>
+                <td>11</td>
+                <td>B</td>
+                <td>
+                  <div>72%<div class="prog-bar">
+                      <div class="prog-fill" style="width:72%;background:var(--wa)"></div>
+                    </div>
+                  </div>
+                </td>
+                <td style="font-weight:700;color:var(--wa)">C+</td>
+                <td><span class="badge by">At Risk</span></td>
+                <td>
+                  <div class="acts"><button class="btn bo bsm"><i class="fas fa-eye"></i></button><button
+                      class="btn bo bsm"><i class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                        class="fas fa-trash"></i></button></div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="avc">
+                    <div class="av gr">LT</div>
+                    <div>
+                      <div style="font-weight:600">Lily Tanaka</div>
+                      <div style="font-size:.72rem;color:var(--mu)">lily@devlearn.edu</div>
+                    </div>
+                  </div>
+                </td>
+                <td>#1004</td>
+                <td>12</td>
+                <td>A</td>
+                <td>
+                  <div>99%<div class="prog-bar">
+                      <div class="prog-fill" style="width:99%;background:var(--ok)"></div>
+                    </div>
+                  </div>
+                </td>
+                <td style="font-weight:700;color:var(--p)">A+</td>
+                <td><span class="badge bg">Active</span></td>
+                <td>
+                  <div class="acts"><button class="btn bo bsm"><i class="fas fa-eye"></i></button><button
+                      class="btn bo bsm"><i class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                        class="fas fa-trash"></i></button></div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="avc">
+                    <div class="av re">JO</div>
+                    <div>
+                      <div style="font-weight:600">James Obi</div>
+                      <div style="font-size:.72rem;color:var(--mu)">james@devlearn.edu</div>
+                    </div>
+                  </div>
+                </td>
+                <td>#1005</td>
+                <td>9</td>
+                <td>A</td>
+                <td>
+                  <div>61%<div class="prog-bar">
+                      <div class="prog-fill" style="width:61%;background:var(--er)"></div>
+                    </div>
+                  </div>
+                </td>
+                <td style="font-weight:700;color:var(--er)">D</td>
+                <td><span class="badge br">Inactive</span></td>
+                <td>
+                  <div class="acts"><button class="btn bo bsm"><i class="fas fa-eye"></i></button><button
+                      class="btn bo bsm"><i class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                        class="fas fa-trash"></i></button></div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="avc">
+                    <div class="av pi">NP</div>
+                    <div>
+                      <div style="font-weight:600">Nina Patel</div>
+                      <div style="font-size:.72rem;color:var(--mu)">nina@devlearn.edu</div>
+                    </div>
+                  </div>
+                </td>
+                <td>#1006</td>
+                <td>10</td>
+                <td>B</td>
+                <td>
+                  <div>88%<div class="prog-bar">
+                      <div class="prog-fill" style="width:88%;background:var(--ok)"></div>
+                    </div>
+                  </div>
+                </td>
+                <td style="font-weight:700;color:var(--p)">B+</td>
+                <td><span class="badge bg">Active</span></td>
+                <td>
+                  <div class="acts"><button class="btn bo bsm"><i class="fas fa-eye"></i></button><button
+                      class="btn bo bsm"><i class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                        class="fas fa-trash"></i></button></div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="avc">
+                    <div class="av te">EW</div>
+                    <div>
+                      <div style="font-weight:600">Ethan Walsh</div>
+                      <div style="font-size:.72rem;color:var(--mu)">ethan@devlearn.edu</div>
+                    </div>
+                  </div>
+                </td>
+                <td>#1007</td>
+                <td>11</td>
+                <td>C</td>
+                <td>
+                  <div>83%<div class="prog-bar">
+                      <div class="prog-fill" style="width:83%;background:var(--ok)"></div>
+                    </div>
+                  </div>
+                </td>
+                <td style="font-weight:700;color:var(--p)">B</td>
+                <td><span class="badge bg">Active</span></td>
+                <td>
+                  <div class="acts"><button class="btn bo bsm"><i class="fas fa-eye"></i></button><button
+                      class="btn bo bsm"><i class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                        class="fas fa-trash"></i></button></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap;gap:8px">
+          <span style="font-size:.78rem;color:var(--mu)">Showing 7 of 1,248 students</span>
+          <div style="display:flex;gap:5px">
+            <button class="btn bo bsm"><i class="fas fa-chevron-left"></i></button>
+            <button class="btn bp bsm">1</button>
+            <button class="btn bo bsm">2</button>
+            <button class="btn bo bsm">3</button>
+            <button class="btn bo bsm"><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px">
+        <div class="card" style="margin-bottom:0;text-align:center;padding:18px">
+          <div style="font-size:1.8rem;font-weight:700;color:var(--p)">1,248</div>
+          <div style="font-size:.8rem;color:var(--mu);margin-top:3px">Total Enrolled</div>
+          <div style="font-size:.72rem;color:var(--ok);margin-top:4px"><i class="fas fa-arrow-up"></i> +23 this term
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:0;text-align:center;padding:18px">
+          <div style="font-size:1.8rem;font-weight:700;color:var(--ok)">91%</div>
+          <div style="font-size:.8rem;color:var(--mu);margin-top:3px">Avg Attendance</div>
+          <div style="font-size:.72rem;color:var(--ok);margin-top:4px"><i class="fas fa-arrow-up"></i> +2% vs last term
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:0;text-align:center;padding:18px">
+          <div style="font-size:1.8rem;font-weight:700;color:var(--wa)">47</div>
+          <div style="font-size:.8rem;color:var(--mu);margin-top:3px">At-Risk Students</div>
+          <div style="font-size:.72rem;color:var(--er);margin-top:4px"><i class="fas fa-arrow-up"></i> +5 this week
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:0;text-align:center;padding:18px">
+          <div style="font-size:1.8rem;font-weight:700;color:var(--p)">3.6</div>
+          <div style="font-size:.8rem;color:var(--mu);margin-top:3px">Avg GPA</div>
+          <div style="font-size:.72rem;color:var(--ok);margin-top:4px"><i class="fas fa-arrow-up"></i> +0.1 vs last term
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEACHERS -->
+    <div id="sec-teachers" class="sec">
+      <div class="two">
+        <div>
+          <div class="card">
+            <div class="ch">
+              <span class="ct"><i class="fas fa-chalkboard-teacher" style="margin-right:6px;color:var(--p)"></i>Teacher
+                Directory</span>
+              <div style="display:flex;gap:8px">
+                <button class="btn bo bsm"><i class="fas fa-download" style="margin-right:4px"></i>Export</button>
+                <button class="btn bp bsm"><i class="fas fa-user-plus" style="margin-right:4px"></i>Add Teacher</button>
+              </div>
+            </div>
+            <div class="ctrl">
+              <div class="sb"><i class="fas fa-search"></i><input placeholder="Search teachers..."></div>
+              <select class="fsel">
+                <option>All Departments</option>
+                <option>Mathematics</option>
+                <option>Sciences</option>
+                <option>Languages</option>
+                <option>Humanities</option>
+              </select>
+              <select class="fsel">
+                <option>All Status</option>
+                <option>Active</option>
+                <option>On Leave</option>
+              </select>
+            </div>
+            <div class="tw">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Teacher</th>
+                    <th>ID</th>
+                    <th>Department</th>
+                    <th>Classes</th>
+                    <th>Students</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="avc">
+                        <div class="av bl">SM</div>
+                        <div>
+                          <div style="font-weight:600">Sarah Mitchell</div>
+                          <div style="font-size:.72rem;color:var(--mu)">s.mitchell@devlearn.edu</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>T-001</td>
+                    <td>Mathematics</td>
+                    <td>4</td>
+                    <td>124</td>
+                    <td><span class="badge bg">Active</span></td>
+                    <td>
+                      <div class="acts"><button class="btn bo bsm"><i class="fas fa-eye"></i></button><button
+                          class="btn bo bsm"><i class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                            class="fas fa-ban"></i></button></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="avc">
+                        <div class="av gr">DJ</div>
+                        <div>
+                          <div style="font-weight:600">David Johnson</div>
+                          <div style="font-size:.72rem;color:var(--mu)">d.johnson@devlearn.edu</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>T-002</td>
+                    <td>Sciences</td>
+                    <td>5</td>
+                    <td>152</td>
+                    <td><span class="badge bg">Active</span></td>
+                    <td>
+                      <div class="acts"><button class="btn bo bsm"><i class="fas fa-eye"></i></button><button
+                          class="btn bo bsm"><i class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                            class="fas fa-ban"></i></button></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="avc">
+                        <div class="av pi">EM</div>
+                        <div>
+                          <div style="font-weight:600">Emily Carter</div>
+                          <div style="font-size:.72rem;color:var(--mu)">e.carter@devlearn.edu</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>T-003</td>
+                    <td>Languages</td>
+                    <td>3</td>
+                    <td>96</td>
+                    <td><span class="badge by">On Leave</span></td>
+                    <td>
+                      <div class="acts"><button class="btn bo bsm"><i class="fas fa-eye"></i></button><button
+                          class="btn bo bsm"><i class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                            class="fas fa-ban"></i></button></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="avc">
+                        <div class="av am">RK</div>
+                        <div>
+                          <div style="font-weight:600">Raj Kapoor</div>
+                          <div style="font-size:.72rem;color:var(--mu)">r.kapoor@devlearn.edu</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>T-004</td>
+                    <td>Mathematics</td>
+                    <td>4</td>
+                    <td>118</td>
+                    <td><span class="badge bg">Active</span></td>
+                    <td>
+                      <div class="acts"><button class="btn bo bsm"><i class="fas fa-eye"></i></button><button
+                          class="btn bo bsm"><i class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                            class="fas fa-ban"></i></button></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="avc">
+                        <div class="av te">FN</div>
+                        <div>
+                          <div style="font-weight:600">Fatima Nour</div>
+                          <div style="font-size:.72rem;color:var(--mu)">f.nour@devlearn.edu</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>T-005</td>
+                    <td>Humanities</td>
+                    <td>3</td>
+                    <td>90</td>
+                    <td><span class="badge bg">Active</span></td>
+                    <td>
+                      <div class="acts"><button class="btn bo bsm"><i class="fas fa-eye"></i></button><button
+                          class="btn bo bsm"><i class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                            class="fas fa-ban"></i></button></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="avc">
+                        <div class="av or">BW</div>
+                        <div>
+                          <div style="font-weight:600">Brian Walsh</div>
+                          <div style="font-size:.72rem;color:var(--mu)">b.walsh@devlearn.edu</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>T-006</td>
+                    <td>Sciences</td>
+                    <td>4</td>
+                    <td>112</td>
+                    <td><span class="badge bg">Active</span></td>
+                    <td>
+                      <div class="acts"><button class="btn bo bsm"><i class="fas fa-eye"></i></button><button
+                          class="btn bo bsm"><i class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                            class="fas fa-ban"></i></button></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <div class="ch"><span class="ct">Add / Edit Teacher</span></div>
+            <div class="fg"><label class="fl">Full Name</label><input class="fi" placeholder="e.g. Sarah Mitchell">
+            </div>
+            <div class="fgrid">
+              <div class="fg"><label class="fl">Employee ID</label><input class="fi" placeholder="T-007"></div>
+              <div class="fg"><label class="fl">Department</label><select class="fi">
+                  <option>Mathematics</option>
+                  <option>Sciences</option>
+                  <option>Languages</option>
+                  <option>Humanities</option>
+                </select></div>
+            </div>
+            <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email"
+                placeholder="teacher@devlearn.edu"></div>
+            <div class="fgrid">
+              <div class="fg"><label class="fl">Phone</label><input class="fi" placeholder="+91 98765 43210"></div>
+              <div class="fg"><label class="fl">Join Date</label><input class="fi" type="date" value="2026-04-09"></div>
+            </div>
+            <div class="fg"><label class="fl">Assigned Classes</label><input class="fi"
+                placeholder="e.g. Maths 10A, Physics 11B"></div>
+            <div class="fg"><label class="fl">Status</label><select class="fi">
+                <option>Active</option>
+                <option>On Leave</option>
+                <option>Inactive</option>
+              </select></div>
+            <div style="display:flex;gap:9px;margin-top:4px">
+              <button class="btn bp" style="flex:1"><i class="fas fa-save" style="margin-right:5px"></i>Save
+                Teacher</button>
+              <button class="btn bo">Clear</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="ch"><span class="ct">Department Overview</span></div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px">
+                  <span>Mathematics</span><span style="font-weight:700">18 teachers</span>
+                </div>
+                <div class="prog-bar">
+                  <div class="prog-fill" style="width:78%;background:var(--p)"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px">
+                  <span>Sciences</span><span style="font-weight:700">22 teachers</span>
+                </div>
+                <div class="prog-bar">
+                  <div class="prog-fill" style="width:92%;background:var(--ok)"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px">
+                  <span>Languages</span><span style="font-weight:700">16 teachers</span>
+                </div>
+                <div class="prog-bar">
+                  <div class="prog-fill" style="width:65%;background:var(--wa)"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px">
+                  <span>Humanities</span><span style="font-weight:700">14 teachers</span>
+                </div>
+                <div class="prog-bar">
+                  <div class="prog-fill" style="width:55%;background:#8B5CF6"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCHEDULE -->
+    <div id="sec-schedule" class="sec">
+      <div class="card">
+        <div class="ch">
+          <span class="ct"><i class="fas fa-calendar-alt" style="margin-right:6px;color:var(--p)"></i>Weekly Class
+            Schedule</span>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <select class="fsel">
+              <option>All Grades</option>
+              <option>Grade 9</option>
+              <option>Grade 10</option>
+              <option>Grade 11</option>
+              <option>Grade 12</option>
+            </select>
+            <button class="btn bo bsm"><i class="fas fa-print" style="margin-right:4px"></i>Print</button>
+            <button class="btn bp bsm"><i class="fas fa-plus" style="margin-right:4px"></i>Add Slot</button>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px">
+          <div
+            style="background:var(--bg);border-radius:8px;padding:7px 14px;font-size:.75rem;font-weight:600;white-space:nowrap;min-width:90px;text-align:center">
+            <div style="color:var(--mu)">09:00–10:00</div>
+          </div>
+          <div
+            style="background:var(--bg);border-radius:8px;padding:7px 14px;font-size:.75rem;font-weight:600;white-space:nowrap;min-width:90px;text-align:center">
+            <div style="color:var(--mu)">10:00–11:00</div>
+          </div>
+          <div
+            style="background:#FEF3C7;border-radius:8px;padding:7px 14px;font-size:.75rem;font-weight:600;white-space:nowrap;min-width:90px;text-align:center">
+            <div style="color:#92400E">11:00–11:15 Break</div>
+          </div>
+          <div
+            style="background:var(--bg);border-radius:8px;padding:7px 14px;font-size:.75px;font-weight:600;white-space:nowrap;min-width:90px;text-align:center">
+            <div style="color:var(--mu)">11:15–12:15</div>
+          </div>
+          <div
+            style="background:var(--bg);border-radius:8px;padding:7px 14px;font-size:.75px;font-weight:600;white-space:nowrap;min-width:90px;text-align:center">
+            <div style="color:var(--mu)">12:15–01:15</div>
+          </div>
+        </div>
+
+        <div class="sched-grid">
+          <div class="day-col">
+            <div class="day-hdr">Monday</div>
+            <div class="slot math">
+              <div class="slot-sub">Mathematics</div>
+              <div class="slot-time">09:00–10:00 · Rm 201</div>
+              <div class="slot-tchr">S. Mitchell</div>
+            </div>
+            <div class="slot phys">
+              <div class="slot-sub">Physics</div>
+              <div class="slot-time">10:00–11:00 · Lab 3</div>
+              <div class="slot-tchr">D. Johnson</div>
+            </div>
+            <div class="slot chem">
+              <div class="slot-sub">Chemistry</div>
+              <div class="slot-time">11:15–12:15 · Lab 1</div>
+              <div class="slot-tchr">B. Walsh</div>
+            </div>
+            <div class="slot hist">
+              <div class="slot-sub">History</div>
+              <div class="slot-time">12:15–01:15 · Rm 105</div>
+              <div class="slot-tchr">F. Nour</div>
+            </div>
+          </div>
+          <div class="day-col">
+            <div class="day-hdr">Tuesday</div>
+            <div class="slot eng">
+              <div class="slot-sub">English</div>
+              <div class="slot-time">09:00–10:00 · Rm 302</div>
+              <div class="slot-tchr">E. Carter</div>
+            </div>
+            <div class="slot math">
+              <div class="slot-sub">Mathematics</div>
+              <div class="slot-time">10:00–11:00 · Rm 201</div>
+              <div class="slot-tchr">R. Kapoor</div>
+            </div>
+            <div class="slot stat">
+              <div class="slot-sub">Statistics</div>
+              <div class="slot-time">11:15–12:15 · Rm 305</div>
+              <div class="slot-tchr">S. Mitchell</div>
+            </div>
+            <div class="slot empty" onclick="">
+              <div class="slot-empty-lbl"><i class="fas fa-plus" style="margin-right:4px"></i>Add Slot</div>
+            </div>
+          </div>
+          <div class="day-col">
+            <div class="day-hdr">Wednesday</div>
+            <div class="slot phys">
+              <div class="slot-sub">Physics</div>
+              <div class="slot-time">09:00–10:00 · Lab 3</div>
+              <div class="slot-tchr">D. Johnson</div>
+            </div>
+            <div class="slot eng">
+              <div class="slot-sub">English</div>
+              <div class="slot-time">10:00–11:00 · Rm 302</div>
+              <div class="slot-tchr">E. Carter</div>
+            </div>
+            <div class="slot math">
+              <div class="slot-sub">Mathematics</div>
+              <div class="slot-time">11:15–12:15 · Rm 201</div>
+              <div class="slot-tchr">S. Mitchell</div>
+            </div>
+            <div class="slot hist">
+              <div class="slot-sub">History</div>
+              <div class="slot-time">12:15–01:15 · Rm 105</div>
+              <div class="slot-tchr">F. Nour</div>
+            </div>
+          </div>
+          <div class="day-col">
+            <div class="day-hdr">Thursday</div>
+            <div class="slot hist">
+              <div class="slot-sub">History</div>
+              <div class="slot-time">09:00–10:00 · Rm 105</div>
+              <div class="slot-tchr">F. Nour</div>
+            </div>
+            <div class="slot stat">
+              <div class="slot-sub">Statistics</div>
+              <div class="slot-time">10:00–11:00 · Rm 305</div>
+              <div class="slot-tchr">R. Kapoor</div>
+            </div>
+            <div class="slot eng">
+              <div class="slot-sub">English</div>
+              <div class="slot-time">11:15–12:15 · Rm 302</div>
+              <div class="slot-tchr">E. Carter</div>
+            </div>
+            <div class="slot math">
+              <div class="slot-sub">Mathematics</div>
+              <div class="slot-time">12:15–01:15 · Rm 201</div>
+              <div class="slot-tchr">S. Mitchell</div>
+            </div>
+          </div>
+          <div class="day-col">
+            <div class="day-hdr">Friday</div>
+            <div class="slot stat">
+              <div class="slot-sub">Computer Sci</div>
+              <div class="slot-time">09:00–10:00 · Lab 2</div>
+              <div class="slot-tchr">R. Kapoor</div>
+            </div>
+            <div class="slot phys">
+              <div class="slot-sub">Physics</div>
+              <div class="slot-time">10:00–11:00 · Lab 3</div>
+              <div class="slot-tchr">B. Walsh</div>
+            </div>
+            <div class="slot empty" onclick="">
+              <div class="slot-empty-lbl"><i class="fas fa-plus" style="margin-right:4px"></i>Add Slot</div>
+            </div>
+            <div class="slot chem">
+              <div class="slot-sub">Chemistry</div>
+              <div class="slot-time">12:15–01:15 · Lab 1</div>
+              <div class="slot-tchr">B. Walsh</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:5px;font-size:.75rem">
+            <div style="width:10px;height:10px;border-radius:3px;background:#BFDBFE"></div>Mathematics
+          </div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:.75rem">
+            <div style="width:10px;height:10px;border-radius:3px;background:#A7F3D0"></div>Physics
+          </div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:.75rem">
+            <div style="width:10px;height:10px;border-radius:3px;background:#E9D5FF"></div>English
+          </div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:.75rem">
+            <div style="width:10px;height:10px;border-radius:3px;background:#FDE68A"></div>History
+          </div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:.75rem">
+            <div style="width:10px;height:10px;border-radius:3px;background:#FECDD3"></div>Chemistry
+          </div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:.75rem">
+            <div style="width:10px;height:10px;border-radius:3px;background:#BAE6FD"></div>Statistics / CS
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANNOUNCEMENTS -->
+    <div id="sec-announce" class="sec">
+      <div class="two">
+        <div>
+          <div class="card">
+            <div class="ch"><span class="ct"><i class="fas fa-bullhorn" style="margin-right:6px;color:var(--p)"></i>All
+                Announcements</span>
+              <div style="display:flex;gap:8px">
+                <select class="fsel" style="font-size:.78rem;padding:5px 9px">
+                  <option>All Types</option>
+                  <option>General</option>
+                  <option>Urgent</option>
+                  <option>Event</option>
+                  <option>Academic</option>
+                </select>
+              </div>
+            </div>
+            <div class="ann-list">
+              <div class="ann er">
+                <div class="ann-top">
+                  <div>
+                    <div class="ann-title"><i class="fas fa-exclamation-triangle"
+                        style="margin-right:5px;color:var(--er)"></i>Urgent: School Closure Tomorrow</div>
+                    <div class="ann-meta">Posted by Admin · Apr 8, 2026 · All Students & Staff</div>
+                  </div>
+                  <div style="display:flex;gap:5px"><button class="btn bo bsm"><i
+                        class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                        class="fas fa-trash"></i></button></div>
+                </div>
+                <div class="ann-body">Due to scheduled maintenance work on the main building, the school will remain
+                  closed on April 9. All classes will resume on April 10 as normal.</div>
+              </div>
+              <div class="ann warn">
+                <div class="ann-top">
+                  <div>
+                    <div class="ann-title"><i class="fas fa-calendar-check"
+                        style="margin-right:5px;color:var(--wa)"></i>Term 2 Examination Schedule</div>
+                    <div class="ann-meta">Posted by Academic Office · Apr 5, 2026 · Grade 10–12</div>
+                  </div>
+                  <div style="display:flex;gap:5px"><button class="btn bo bsm"><i
+                        class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                        class="fas fa-trash"></i></button></div>
+                </div>
+                <div class="ann-body">Term 2 examinations will be held from April 20–30. Detailed timetables have been
+                  shared with class teachers. Students are advised to check the portal for subject-wise schedules.</div>
+              </div>
+              <div class="ann ok">
+                <div class="ann-top">
+                  <div>
+                    <div class="ann-title"><i class="fas fa-trophy" style="margin-right:5px;color:var(--ok)"></i>Annual
+                      Science Fair – Registration Open</div>
+                    <div class="ann-meta">Posted by Science Dept · Apr 2, 2026 · All Students</div>
+                  </div>
+                  <div style="display:flex;gap:5px"><button class="btn bo bsm"><i
+                        class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                        class="fas fa-trash"></i></button></div>
+                </div>
+                <div class="ann-body">Students from Grades 9–12 are invited to register for the Annual Science Fair on
+                  May
+                  15. Register through the student portal before April 25.</div>
+              </div>
+              <div class="ann">
+                <div class="ann-top">
+                  <div>
+                    <div class="ann-title"><i class="fas fa-info-circle"
+                        style="margin-right:5px;color:var(--p)"></i>Parent-Teacher Meeting – April 18</div>
+                    <div class="ann-meta">Posted by Admin · Mar 30, 2026 · Parents & Teachers</div>
+                  </div>
+                  <div style="display:flex;gap:5px"><button class="btn bo bsm"><i
+                        class="fas fa-edit"></i></button><button class="btn bd2 bsm"><i
+                        class="fas fa-trash"></i></button></div>
+                </div>
+                <div class="ann-body">The quarterly Parent-Teacher Meeting is scheduled for April 18, 2026 from 10:00 AM
+                  to 2:00 PM. Teachers are requested to prepare student progress reports in advance.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div class="ch"><span class="ct"><i class="fas fa-pen" style="margin-right:6px;color:var(--p)"></i>Create
+                Announcement</span></div>
+            <div class="fg"><label class="fl">Title</label><input class="fi" placeholder="Announcement title..."></div>
+            <div class="fg"><label class="fl">Type</label>
+              <select class="fi">
+                <option>General</option>
+                <option>Urgent</option>
+                <option>Event</option>
+                <option>Academic</option>
+                <option>Holiday</option>
+              </select>
+            </div>
+            <div class="fg"><label class="fl">Target Audience</label>
+              <select class="fi">
+                <option>All Students & Staff</option>
+                <option>Students Only</option>
+                <option>Teachers Only</option>
+                <option>Parents Only</option>
+                <option>Grade 9</option>
+                <option>Grade 10</option>
+                <option>Grade 11</option>
+                <option>Grade 12</option>
+              </select>
+            </div>
+            <div class="fgrid" style="margin-bottom:12px">
+              <div class="fg"><label class="fl">Publish Date</label><input class="fi" type="date" value="2026-04-09">
+              </div>
+              <div class="fg"><label class="fl">Expires On</label><input class="fi" type="date" value="2026-04-16">
+              </div>
+            </div>
+            <div class="fg"><label class="fl">Message</label><textarea class="fi fta"
+                placeholder="Write your announcement here..."></textarea></div>
+            <div class="fg"><label class="fl">Priority</label>
+              <div style="display:flex;gap:8px">
+                <label style="display:flex;align-items:center;gap:5px;font-size:.82rem;cursor:pointer"><input
+                    type="radio" name="pri" checked> Normal</label>
+                <label style="display:flex;align-items:center;gap:5px;font-size:.82rem;cursor:pointer"><input
+                    type="radio" name="pri"> High</label>
+                <label style="display:flex;align-items:center;gap:5px;font-size:.82rem;cursor:pointer"><input
+                    type="radio" name="pri"> Critical</label>
+              </div>
+            </div>
+            <div style="display:flex;gap:9px;margin-top:6px">
+              <button class="btn bp" style="flex:1"><i class="fas fa-paper-plane" style="margin-right:5px"></i>Publish
+                Now</button>
+              <button class="btn bo">Save Draft</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="ch"><span class="ct">Quick Stats</span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div style="background:var(--bg);border-radius:10px;padding:12px;text-align:center">
+                <div style="font-size:1.4rem;font-weight:700;color:var(--p)">24</div>
+                <div style="font-size:.72rem;color:var(--mu)">Total This Month</div>
+              </div>
+              <div style="background:var(--bg);border-radius:10px;padding:12px;text-align:center">
+                <div style="font-size:1.4rem;font-weight:700;color:var(--er)">2</div>
+                <div style="font-size:.72rem;color:var(--mu)">Urgent Active</div>
+              </div>
+              <div style="background:var(--bg);border-radius:10px;padding:12px;text-align:center">
+                <div style="font-size:1.4rem;font-weight:700;color:var(--ok)">98%</div>
+                <div style="font-size:.72rem;color:var(--mu)">Read Rate</div>
+              </div>
+              <div style="background:var(--bg);border-radius:10px;padding:12px;text-align:center">
+                <div style="font-size:1.4rem;font-weight:700;color:var(--wa)">3</div>
+                <div style="font-size:.72rem;color:var(--mu)">Drafts Saved</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function showTab(id, btn) {
+      document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('sec-' + id).classList.add('on');
+      btn.classList.add('active');
+      const T = { students: 'Student Management', teachers: 'Teacher Management', schedule: 'Class Scheduling', announce: 'Announcements' };
+      const S = { students: 'Manage enrolment, records and student data', teachers: 'Manage staff, departments and assignments', schedule: 'View and edit the weekly class timetable', announce: 'Post and manage school-wide communications' };
+      document.getElementById('ptitle').textContent = T[id];
+      document.getElementById('psub').textContent = S[id];
+    }
+    function go(id, el) {
+      const btns = document.querySelectorAll('.tab');
+      const m = { students: 0, teachers: 1, schedule: 2, announce: 3 };
+      if (m[id] !== undefined) showTab(id, btns[m[id]]);
+      document.querySelectorAll('.nl a').forEach(a => a.classList.remove('active'));
+      el.classList.add('active');
+      closeSB();
+    }
+    function togSB() { document.getElementById('sb').classList.toggle('open'); document.getElementById('ov').classList.toggle('show') }
+    function closeSB() { document.getElementById('sb').classList.remove('open'); document.getElementById('ov').classList.remove('show') }
+    window.addEventListener('resize', () => { if (window.innerWidth > 768) closeSB() });
+  </script>
+</body>
+
+</html>

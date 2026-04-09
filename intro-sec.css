@@ -1,0 +1,317 @@
+.intro-sec {
+  justify-content: center;
+  padding: 60px 20px;
+  background:linear-gradient(to bottom , #c3c3c3 20% , #fff);
+}
+
+.intro-ctn {
+  justify-content: space-between;
+  padding: 20px 0;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.intro-part1,
+.intro-part2 {
+  width: 45%;
+  flex-direction: column;
+}
+
+.intro-part1{
+  min-width: 380px;
+}
+
+.intro-part2 {
+  justify-content: center;
+}
+
+.intro-part1 span {
+  color: #4a6cf7;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.intro-part1 h2 {
+  font-size: 45px;
+  margin: 15px 0;
+  text-align: left;
+  color: #111;
+}
+
+.intro-part1 h2 span {
+  color: #4a6cf7;
+}
+
+.intro-part1 p {
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 30px;
+  line-height: 1.7;
+  max-width: 450px;
+}
+
+/* BUTTON */
+.about-btn {
+  background: #4a6cf7;
+  color: white;
+  padding: 12px 25px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.shape-ctn {
+  width: 100%;
+  max-width: 400px;
+  height: 400px;
+  justify-content: space-evenly;
+  flex-direction: row;
+  padding: 20px;
+  gap: 0.8rem;
+}
+
+.shape-box {
+  width: 100px;
+  height: 100%;
+  flex-direction: column;
+  /* border: 2px solid grey; */
+}
+
+.box1-part2,
+.box2-part1,
+.box3-part2 {
+  width: 100%;
+  height: 100px;
+  /* background-color: red; */
+}
+
+.box1-part1,
+.box2-part2,
+.box3-part1 {
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  border: 2px solid black;
+}
+
+.box1-part1 {
+  background-image: url("./images/image2.png");
+
+}
+
+.box2-part2 {
+  background-image: url("./images/image3.png");
+}
+
+.box3-part1 {
+  background-image: url("./images/image8.png");
+}
+
+.background {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* LOGIN MODAL CONTAINER */
+.login-container {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  display: none;
+  /* hidden by default */
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* ACTIVE STATE (SHOW MODAL) */
+.login-container.active {
+  display: flex;
+}
+
+/* LOGIN CARD */
+.login-card {
+  width: 380px;
+  padding: 60px 40px;
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+
+  text-align: center;
+  color: #fff;
+
+  position: relative;
+
+  animation: fadeIn 0.3s ease;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+/* CLOSE BUTTON */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  color: #ffd700;
+}
+
+/* TEXT */
+.login-card > h2 {
+  margin-bottom: 10px;
+  color: rgb(186, 186, 187);
+}
+
+.login-card > p {
+  font-size: 14px;
+  margin-bottom: 25px;
+  opacity: 0.85;
+  color: rgb(157, 155, 155);
+}
+
+/* INPUTS */
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.input-group input::placeholder {
+  color: #eaeaea;
+}
+
+.input-group input:focus {
+  background-color: #797979;
+}
+
+/* OPTIONS */
+.options {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.options a {
+  color: #ffd700;
+  text-decoration: none;
+}
+
+/* BUTTON */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
+
+  background: #ffd700;
+  color: #000;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #ffcc00;
+}
+
+/* SIGNUP TEXT */
+.signup-text {
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+.signup-text a {
+  color: #ffd700;
+  text-decoration: none;
+}
+
+@media (max-width:700px) {
+  .intro-ctn {
+    flex-direction: column;
+    padding: 30px;
+  }
+
+  .shape-ctn{
+    min-width: 300px;
+    padding: 20px;
+    gap: 1rem;
+  }
+
+  .intro-part1{
+    width: 100%;
+    height: 360px;
+  }
+
+  .intro-part1 span,
+  .intro-part1 p{
+    font-size: 16px;
+  }
+
+  .intro-part1 h2 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width:400px) {
+  .login-card{
+    width: 320px;
+  }
+
+  .login-card h2{
+    font-size: 30px;
+  }
+
+
+  .intro-part1 span,
+  .intro-part1 p{
+    font-size: 12px;
+  }
+
+  .intro-part1{
+    min-width: 320px;
+    padding: 25px;
+  }
+
+  .intro-part1 h2 {
+    font-size: 28px;
+  }
+}

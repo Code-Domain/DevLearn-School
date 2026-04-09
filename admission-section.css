@@ -1,0 +1,367 @@
+:root {
+    --primary-blue: #2563EB;
+    --dark-blue: #1E40AF;
+    --accent-blue: #DBEAFE;
+    --text-dark: #1F2937;
+    --text-gray: #4B5563;
+    --bg-light: #F9FAFB;
+    --bg-white: #FFFFFF;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    --radius-card: 20px;
+    --radius-btn: 50px;
+
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 
+         * TYPOGRAPHY & UTILITIES 
+         */
+.subtitle {
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-bottom: 12px;
+    background-color: var(--accent-blue);
+    padding: 6px 16px;
+    border-radius: 20px;
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+
+p {
+    color: var(--text-gray);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    border-radius: var(--radius-btn);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+}
+
+.cta-group > .btn-primary {
+    background-color: var(--primary-blue);
+    color: var(--bg-white);
+    box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
+}
+
+.cta-group > .btn-primary:hover {
+    background-color: var(--dark-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px 0 rgba(37, 99, 235, 0.23);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--primary-blue);
+    color: var(--primary-blue);
+    margin-left: 10px;
+}
+
+.btn-outline:hover {
+    background-color: var(--primary-blue);
+    color: var(--bg-white);
+}
+
+/* 
+         * ADMISSIONS SECTION 
+         */
+.admissions-section {
+    padding: 80px 0;
+    background-color: var(--bg-white);
+    border-top: 1px solid #F3F4F6;
+}
+
+/* 1. Header */
+.section-header {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 60px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.section-header.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Main Grid Layout */
+.admissions-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* 2. Admission Process Steps */
+.process-container {
+    position: relative;
+}
+
+.steps-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+/* Connecting Line */
+.steps-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 30px;
+    bottom: 30px;
+    width: 2px;
+    background-color: #E5E7EB;
+    z-index: 0;
+}
+
+.step-card {
+    background: var(--bg-white);
+    border: 1px solid #F3F4F6;
+    border-radius: var(--radius-card);
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    display: flex;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.step-card.visible {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent-blue);
+}
+
+/* Stagger delays */
+.step-card:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.step-card:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.step-card:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.step-card:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.step-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    /* Light blue bg for number logic handled below */
+    line-height: 1;
+    min-width: 50px;
+    height: 50px;
+    background-color: var(--primary-blue);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+}
+
+.step-content h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text-dark);
+}
+
+.step-content p {
+    font-size: 0.95rem;
+    color: var(--text-gray);
+}
+
+/* 5. Side Panel / Info Card */
+.info-panel {
+    background-color: var(--bg-light);
+    border-radius: var(--radius-card);
+    padding: 40px 30px;
+    text-align: center;
+    position: sticky;
+    top: 100px;
+    /* Sticky on scroll */
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #E5E7EB;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.info-panel.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transition-delay: 0.3s;
+}
+
+.badge {
+    background-color: var(--accent-blue);
+    color: var(--primary-blue);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.academic-year {
+    font-size: 2.5rem;
+    font-family: 'Playfair Display', serif;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    line-height: 1.1;
+}
+
+.panel-desc {
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+/* 3. Why Choose Us (Inside Panel) */
+.why-choose-list {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.why-choose-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.why-choose-list i {
+    color: var(--primary-blue);
+    margin-top: 3px;
+}
+
+/* 4. CTA Actions */
+.cta-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.seats-text {
+    font-size: 0.8rem;
+    color: #EF4444;
+    /* Red for urgency */
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+/* 
+         * RESPONSIVE DESIGN
+         */
+@media (max-width: 992px) {
+    .admissions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-panel {
+        position: static;
+        /* Remove sticky on mobile */
+        order: -1;
+        /* Move info panel to top on mobile for priority */
+    }
+}
+
+@media (max-width: 768px) {
+    .section-header h2 {
+        font-size: 2rem;
+    }
+
+    .steps-wrapper::before {
+        left: 20px;
+    }
+
+    .step-card {
+        flex-direction: row;
+        /* Keep row but smaller padding */
+        padding: 16px;
+    }
+
+    .step-number {
+        font-size: 1.4rem;
+        min-width: 40px;
+        height: 40px;
+    }
+
+    .academic-year {
+        font-size: 2rem;
+    }
+}

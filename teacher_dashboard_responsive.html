@@ -1,0 +1,1913 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+  }
+
+  :root {
+    --p: #4F46E5;
+    --p-light: #EEF2FF;
+    --p-dark: #3730A3;
+    --sidebar: #1E293B;
+    --bg: #F1F5F9;
+    --card: #fff;
+    --text: #1E293B;
+    --muted: #64748B;
+    --border: #E2E8F0;
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    --sw: 250px
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+    font-size: 14px
+  }
+
+  .sidebar {
+    width: var(--sw);
+    background: var(--sidebar);
+    color: #CBD5E1;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 200;
+    transition: transform .3s
+  }
+
+  .brand {
+    padding: 20px 18px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    color: #fff
+  }
+
+  .brand i {
+    color: #2563EB;
+    font-size: 1.3rem
+  }
+
+  .nav-section {
+    padding: 12px 10px 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: #475569;
+    text-transform: uppercase
+  }
+
+  .nav-links {
+    list-style: none;
+    padding: 0 8px;
+    flex-grow: 1;
+    overflow-y: auto
+  }
+
+  .nav-links li {
+    margin-bottom: 2px
+  }
+
+  .nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    color: #94A3B8;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all .2s;
+    font-size: .88rem;
+    font-weight: 500;
+    cursor: pointer
+  }
+
+  .nav-links a:hover {
+    background: rgba(255, 255, 255, .07);
+    color: #E2E8F0
+  }
+
+  .nav-links a.active {
+    background: var(--p);
+    color: #fff
+  }
+
+  .nav-links a i {
+    font-size: 14px;
+    width: 16px;
+    text-align: center
+  }
+
+  .teacher-card {
+    margin: 12px;
+    background: rgba(255, 255, 255, .05);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(255, 255, 255, .08)
+  }
+
+  .teacher-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--p);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: #fff;
+    flex-shrink: 0
+  }
+
+  .teacher-info {
+    min-width: 0
+  }
+
+  .teacher-info strong {
+    display: block;
+    font-size: .85rem;
+    color: #F1F5F9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+  }
+
+  .teacher-info span {
+    font-size: .75rem;
+    color: #64748B
+  }
+
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .4);
+    z-index: 150
+  }
+
+  .overlay.show {
+    display: block
+  }
+
+  .main {
+    margin-left: var(--sw);
+    flex-grow: 1;
+    padding: 24px;
+    width: calc(100% - var(--sw));
+    min-height: 100vh
+  }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    gap: 12px
+  }
+
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px
+  }
+
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text);
+    padding: 7px;
+    border-radius: 8px;
+    line-height: 1
+  }
+
+  .page-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text)
+  }
+
+  .page-sub {
+    font-size: .82rem;
+    color: var(--muted);
+    margin-top: 2px
+  }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px
+  }
+
+  .ibt {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+    position: relative
+  }
+
+  .ibt:hover {
+    color: var(--p)
+  }
+
+  .dot {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 7px;
+    height: 7px;
+    background: var(--danger);
+    border-radius: 50%;
+    border: 1.5px solid var(--card)
+  }
+
+  .date-pill {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: .8rem;
+    color: var(--muted);
+    font-weight: 500
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 22px
+  }
+
+  .stat-card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 14px
+  }
+
+  .stat-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0
+  }
+
+  .stat-icon.blue {
+    background: #EEF2FF;
+    color: var(--p)
+  }
+
+  .stat-icon.green {
+    background: #ECFDF5;
+    color: var(--success)
+  }
+
+  .stat-icon.amber {
+    background: #FFFBEB;
+    color: var(--warning)
+  }
+
+  .stat-icon.red {
+    background: #FEF2F2;
+    color: var(--danger)
+  }
+
+  .stat-num {
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.1
+  }
+
+  .stat-lbl {
+    font-size: .75rem;
+    color: var(--muted);
+    margin-top: 2px
+  }
+
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 22px;
+    overflow-x: auto
+  }
+
+  .tab {
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--muted);
+    white-space: nowrap;
+    transition: all .2s;
+    border: none;
+    background: none
+  }
+
+  .tab.active {
+    background: var(--p);
+    color: #fff
+  }
+
+  .tab:hover:not(.active) {
+    background: var(--bg);
+    color: var(--text)
+  }
+
+  .section {
+    display: none
+  }
+
+  .section.visible {
+    display: block
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px
+  }
+
+  .card-hdr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px
+  }
+
+  .card-title {
+    font-size: .95rem;
+    font-weight: 700
+  }
+
+  .btn {
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: .82rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all .2s
+  }
+
+  .btn-primary {
+    background: var(--p);
+    color: #fff
+  }
+
+  .btn-primary:hover {
+    background: var(--p-dark)
+  }
+
+  .btn-outline {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text)
+  }
+
+  .btn-outline:hover {
+    background: var(--bg)
+  }
+
+  .btn-sm {
+    padding: 5px 10px;
+    font-size: .78rem
+  }
+
+  .btn-danger {
+    background: #FEF2F2;
+    color: var(--danger);
+    border: 1px solid #FECACA
+  }
+
+  .btn-success {
+    background: #ECFDF5;
+    color: var(--success);
+    border: 1px solid #A7F3D0
+  }
+
+  .classes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px
+  }
+
+  .class-card {
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    background: var(--card);
+    transition: box-shadow .2s
+  }
+
+  .class-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .07)
+  }
+
+  .class-banner {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem
+  }
+
+  .class-body {
+    padding: 14px
+  }
+
+  .class-name {
+    font-weight: 700;
+    font-size: .95rem;
+    margin-bottom: 2px
+  }
+
+  .class-meta {
+    font-size: .78rem;
+    color: var(--muted);
+    margin-bottom: 10px
+  }
+
+  .class-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 12px
+  }
+
+  .pill {
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: .72rem;
+    font-weight: 600
+  }
+
+  .pill-blue {
+    background: #EEF2FF;
+    color: #3730A3
+  }
+
+  .pill-green {
+    background: #ECFDF5;
+    color: #065F46
+  }
+
+  .pill-amber {
+    background: #FFFBEB;
+    color: #92400E
+  }
+
+  .class-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid var(--border)
+  }
+
+  .class-foot span {
+    font-size: .78rem;
+    color: var(--muted)
+  }
+
+  .att-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap
+  }
+
+  .att-controls select,
+  .att-controls input {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: .83rem;
+    background: var(--card);
+    color: var(--text);
+    outline: none
+  }
+
+  .att-table-wrap {
+    overflow-x: auto
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse
+  }
+
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--muted);
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap
+  }
+
+  td {
+    padding: 11px 14px;
+    font-size: .85rem;
+    border-bottom: 1px solid #F8FAFC;
+    vertical-align: middle
+  }
+
+  tr:last-child td {
+    border-bottom: none
+  }
+
+  tr:hover td {
+    background: #FAFAFA
+  }
+
+  .avatar-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px
+  }
+
+  .av {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0
+  }
+
+  .av.purple {
+    background: #EDE9FE;
+    color: #5B21B6
+  }
+
+  .av.blue {
+    background: #DBEAFE;
+    color: #1E40AF
+  }
+
+  .av.green {
+    background: #D1FAE5;
+    color: #065F46
+  }
+
+  .av.amber {
+    background: #FEF3C7;
+    color: #92400E
+  }
+
+  .av.red {
+    background: #FEE2E2;
+    color: #991B1B
+  }
+
+  .av.pink {
+    background: #FCE7F3;
+    color: #9D174D
+  }
+
+  .av.teal {
+    background: #CCFBF1;
+    color: #0F766E
+  }
+
+  .av.indigo {
+    background: #E0E7FF;
+    color: #3730A3
+  }
+
+  .att-toggle {
+    display: flex;
+    gap: 6px
+  }
+
+  .att-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: .78rem;
+    font-weight: 700;
+    transition: all .2s
+  }
+
+  .att-btn.p {
+    background: #ECFDF5;
+    color: #059669
+  }
+
+  .att-btn.a {
+    background: #FEF2F2;
+    color: #DC2626
+  }
+
+  .att-btn.l {
+    background: #FFFBEB;
+    color: #D97706
+  }
+
+  .att-btn.active-p {
+    background: #059669;
+    color: #fff
+  }
+
+  .att-btn.active-a {
+    background: #DC2626;
+    color: #fff
+  }
+
+  .att-btn.active-l {
+    background: #D97706;
+    color: #fff
+  }
+
+  .att-summary {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap
+  }
+
+  .att-stat {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 10px 16px;
+    text-align: center;
+    flex: 1;
+    min-width: 80px
+  }
+
+  .att-stat .n {
+    font-size: 1.3rem;
+    font-weight: 700
+  }
+
+  .att-stat .l {
+    font-size: .72rem;
+    color: var(--muted);
+    margin-top: 2px
+  }
+
+  .att-stat.g .n {
+    color: var(--success)
+  }
+
+  .att-stat.r .n {
+    color: var(--danger)
+  }
+
+  .att-stat.y .n {
+    color: var(--warning)
+  }
+
+  .upload-area {
+    border: 2px dashed var(--border);
+    border-radius: 14px;
+    padding: 36px;
+    text-align: center;
+    background: #FAFBFC;
+    cursor: pointer;
+    transition: border-color .2s;
+    margin-bottom: 16px
+  }
+
+  .upload-area:hover {
+    border-color: var(--p)
+  }
+
+  .upload-icon {
+    font-size: 2.2rem;
+    color: #CBD5E1;
+    margin-bottom: 10px
+  }
+
+  .upload-title {
+    font-weight: 700;
+    font-size: .95rem;
+    margin-bottom: 4px
+  }
+
+  .upload-sub {
+    font-size: .8rem;
+    color: var(--muted)
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px
+  }
+
+  .form-group.full {
+    grid-column: 1/-1
+  }
+
+  .form-label {
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--muted)
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: .85rem;
+    background: var(--card);
+    color: var(--text);
+    outline: none;
+    font-family: inherit;
+    transition: border-color .2s;
+    width: 100%
+  }
+
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    border-color: var(--p)
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 72px
+  }
+
+  .recent-uploads {
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+  }
+
+  .upload-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-radius: 10px;
+    gap: 10px
+  }
+
+  .upload-item-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0
+  }
+
+  .file-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: #EEF2FF;
+    color: var(--p);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0
+  }
+
+  .file-name {
+    font-size: .85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+  }
+
+  .file-meta {
+    font-size: .75rem;
+    color: var(--muted)
+  }
+
+  .upload-item-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0
+  }
+
+  .badge {
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: .7rem;
+    font-weight: 700
+  }
+
+  .badge-graded {
+    background: #ECFDF5;
+    color: #065F46
+  }
+
+  .badge-pending {
+    background: #FFFBEB;
+    color: #92400E
+  }
+
+  .badge-new {
+    background: #EEF2FF;
+    color: #3730A3
+  }
+
+  .student-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    align-items: center
+  }
+
+  .search-box {
+    position: relative;
+    flex: 1;
+    min-width: 160px
+  }
+
+  .search-box i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 13px
+  }
+
+  .search-box input {
+    padding-left: 30px;
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    font-size: .83rem;
+    background: var(--card);
+    color: var(--text);
+    outline: none
+  }
+
+  .filter-select {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: .83rem;
+    background: var(--card);
+    color: var(--text);
+    outline: none
+  }
+
+  .student-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px
+  }
+
+  .student-card {
+    background: var(--card);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    padding: 16px;
+    text-align: center;
+    transition: box-shadow .2s
+  }
+
+  .student-card:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .08)
+  }
+
+  .s-av {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0 auto 10px
+  }
+
+  .s-name {
+    font-weight: 700;
+    font-size: .88rem;
+    margin-bottom: 2px
+  }
+
+  .s-roll {
+    font-size: .75rem;
+    color: var(--muted);
+    margin-bottom: 10px
+  }
+
+  .s-metrics {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 10px;
+    border-top: 1px solid var(--border)
+  }
+
+  .s-metric .v {
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--p)
+  }
+
+  .s-metric .k {
+    font-size: .68rem;
+    color: var(--muted)
+  }
+
+  .s-status {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: .7rem;
+    font-weight: 600;
+    margin-bottom: 8px
+  }
+
+  .s-status.good {
+    background: #ECFDF5;
+    color: #065F46
+  }
+
+  .s-status.warn {
+    background: #FFFBEB;
+    color: #92400E
+  }
+
+  .s-status.risk {
+    background: #FEF2F2;
+    color: #991B1B
+  }
+
+  .view-toggle {
+    display: flex;
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 3px;
+    gap: 2px
+  }
+
+  .vt-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    background: none;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s
+  }
+
+  .vt-btn.active {
+    background: var(--card);
+    color: var(--p);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1)
+  }
+
+  .list-table tbody tr td:first-child {
+    font-weight: 600
+  }
+
+  .list-table {
+    display: none
+  }
+
+  .list-table.show {
+    display: table
+  }
+
+  .grid-view.hidden {
+    display: none
+  }
+
+  .section-two-col {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 16px
+  }
+
+  @media(max-width:1100px) {
+    .stats-row {
+      grid-template-columns: repeat(2, 1fr)
+    }
+
+    .section-two-col {
+      grid-template-columns: 1fr
+    }
+  }
+
+  @media(max-width:900px) {
+    .stats-row {
+      grid-template-columns: repeat(2, 1fr)
+    }
+  }
+
+  @media(max-width:768px) {
+    .sidebar {
+      transform: translateX(-100%)
+    }
+
+    .sidebar.open {
+      transform: translateX(0)
+    }
+
+    .main {
+      margin-left: 0;
+      width: 100%;
+      padding: 14px
+    }
+
+    .hamburger {
+      display: flex;
+      align-items: center
+    }
+
+    .stats-row {
+      grid-template-columns: repeat(2, 1fr)
+    }
+
+    .form-grid {
+      grid-template-columns: 1fr
+    }
+  }
+
+  @media(max-width:480px) {
+    .stats-row {
+      grid-template-columns: 1fr 1fr
+    }
+
+    .stat-card {
+      padding: 12px
+    }
+
+    .stat-num {
+      font-size: 1.1rem
+    }
+
+    .page-title {
+      font-size: 1.1rem
+    }
+
+    .tab {
+      padding: 7px 10px;
+      font-size: .78rem
+    }
+  }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<div class="overlay" id="overlay" onclick="closeSB()"></div>
+
+<nav class="sidebar" id="sidebar">
+  <div class="brand"><i class="fas fa-graduation-cap"></i>DevLearn</div>
+  <ul class="nav-links" style="margin-top:8px">
+    <li class="nav-section">Main</li>
+    <li><a class="active" onclick="setTab('classes',this)"><i class="fas fa-th-large"></i> Dashboard</a></li>
+    <li><a onclick="setTab('classes',this)"><i class="fas fa-layer-group"></i> My Classes</a></li>
+    <li><a onclick="setTab('attendance',this)"><i class="fas fa-user-check"></i> Attendance</a></li>
+    <li><a onclick="setTab('assignments',this)"><i class="fas fa-file-upload"></i> Assignments</a></li>
+    <li><a onclick="setTab('students',this)"><i class="fas fa-users"></i> Students</a></li>
+    <li class="nav-section">Tools</li>
+    <li><a><i class="fas fa-chart-bar"></i> Reports</a></li>
+    <li><a><i class="fas fa-calendar-alt"></i> Schedule</a></li>
+    <li><a><i class="fas fa-bell"></i> Announcements</a></li>
+    <li><a><i class="fas fa-cog"></i> Settings</a></li>
+  </ul>
+  <div class="teacher-card">
+    <div class="teacher-avatar">SM</div>
+    <div class="teacher-info">
+      <strong>Sarah Mitchell</strong>
+      <span>Math & Physics</span>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="hamburger" onclick="toggleSB()"><i class="fas fa-bars"></i></button>
+      <div>
+        <div class="page-title" id="pageTitle">Class Management</div>
+        <div class="page-sub" id="pageSub">Wednesday, 8 April 2026</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="date-pill"><i class="fas fa-calendar" style="margin-right:5px"></i>Term 2 · Week 14</span>
+      <div class="ibt"><i class="fas fa-search"></i></div>
+      <div class="ibt"><i class="fas fa-bell"></i><span class="dot"></span></div>
+      <div class="ibt"><i class="fas fa-sign-out-alt"></i></div>
+    </div>
+  </header>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon blue"><i class="fas fa-layer-group"></i></div>
+      <div>
+        <div class="stat-num">6</div>
+        <div class="stat-lbl">Active Classes</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green"><i class="fas fa-users"></i></div>
+      <div>
+        <div class="stat-num">182</div>
+        <div class="stat-lbl">Total Students</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon amber"><i class="fas fa-tasks"></i></div>
+      <div>
+        <div class="stat-num">14</div>
+        <div class="stat-lbl">Pending Reviews</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon red"><i class="fas fa-clock"></i></div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-lbl">Due Today</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab active" onclick="showTab('classes',this)"><i class="fas fa-layer-group"
+        style="margin-right:5px"></i>Class Management</button>
+    <button class="tab" onclick="showTab('attendance',this)"><i class="fas fa-user-check"
+        style="margin-right:5px"></i>Attendance</button>
+    <button class="tab" onclick="showTab('assignments',this)"><i class="fas fa-file-upload"
+        style="margin-right:5px"></i>Assignments</button>
+    <button class="tab" onclick="showTab('students',this)"><i class="fas fa-users" style="margin-right:5px"></i>Student
+      List</button>
+  </div>
+
+  <div id="sec-classes" class="section visible">
+    <div class="card">
+      <div class="card-hdr">
+        <span class="card-title"><i class="fas fa-layer-group" style="margin-right:6px;color:var(--p)"></i>My
+          Classes</span>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm"><i class="fas fa-filter" style="margin-right:4px"></i>Filter</button>
+          <button class="btn btn-primary btn-sm"><i class="fas fa-plus" style="margin-right:4px"></i>New Class</button>
+        </div>
+      </div>
+      <div class="classes-grid">
+        <div class="class-card">
+          <div class="class-banner" style="background:#EEF2FF">📐</div>
+          <div class="class-body">
+            <div class="class-name">Mathematics – Grade 10A</div>
+            <div class="class-meta">Room 201 · Mon, Wed, Fri · 09:00–10:00</div>
+            <div class="class-pills"><span class="pill pill-blue">32 Students</span><span
+                class="pill pill-green">Active</span></div>
+            <div class="class-foot"><span><i class="fas fa-file-alt" style="margin-right:4px"></i>8
+                assignments</span><button class="btn btn-outline btn-sm">Manage</button></div>
+          </div>
+        </div>
+        <div class="class-card">
+          <div class="class-banner" style="background:#ECFDF5">⚛️</div>
+          <div class="class-body">
+            <div class="class-name">Physics – Grade 11B</div>
+            <div class="class-meta">Lab 3 · Tue, Thu · 10:00–11:30</div>
+            <div class="class-pills"><span class="pill pill-blue">28 Students</span><span
+                class="pill pill-green">Active</span></div>
+            <div class="class-foot"><span><i class="fas fa-file-alt" style="margin-right:4px"></i>5
+                assignments</span><button class="btn btn-outline btn-sm">Manage</button></div>
+          </div>
+        </div>
+        <div class="class-card">
+          <div class="class-banner" style="background:#FFFBEB">📊</div>
+          <div class="class-body">
+            <div class="class-name">Statistics – Grade 12</div>
+            <div class="class-meta">Room 305 · Mon, Thu · 11:15–12:15</div>
+            <div class="class-pills"><span class="pill pill-blue">30 Students</span><span class="pill pill-amber">Exam
+                Soon</span></div>
+            <div class="class-foot"><span><i class="fas fa-file-alt" style="margin-right:4px"></i>11
+                assignments</span><button class="btn btn-outline btn-sm">Manage</button></div>
+          </div>
+        </div>
+        <div class="class-card">
+          <div class="class-banner" style="background:#FEF2F2">🔬</div>
+          <div class="class-body">
+            <div class="class-name">Physics – Grade 10B</div>
+            <div class="class-meta">Lab 1 · Tue, Fri · 12:15–01:15</div>
+            <div class="class-pills"><span class="pill pill-blue">29 Students</span><span
+                class="pill pill-green">Active</span></div>
+            <div class="class-foot"><span><i class="fas fa-file-alt" style="margin-right:4px"></i>6
+                assignments</span><button class="btn btn-outline btn-sm">Manage</button></div>
+          </div>
+        </div>
+        <div class="class-card">
+          <div class="class-banner" style="background:#F5F3FF">📏</div>
+          <div class="class-body">
+            <div class="class-name">Algebra – Grade 9A</div>
+            <div class="class-meta">Room 104 · Wed, Fri · 09:00–10:00</div>
+            <div class="class-pills"><span class="pill pill-blue">34 Students</span><span
+                class="pill pill-green">Active</span></div>
+            <div class="class-foot"><span><i class="fas fa-file-alt" style="margin-right:4px"></i>9
+                assignments</span><button class="btn btn-outline btn-sm">Manage</button></div>
+          </div>
+        </div>
+        <div class="class-card"
+          style="border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;min-height:180px;cursor:pointer"
+          onclick="">
+          <div style="text-align:center;color:var(--muted)">
+            <div style="font-size:2rem;margin-bottom:8px">+</div>
+            <div style="font-size:.85rem;font-weight:600">Add New Class</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hdr"><span class="card-title"><i class="fas fa-calendar-check"
+            style="margin-right:6px;color:var(--p)"></i>Today's Schedule</span><button
+          class="btn btn-outline btn-sm">Full Timetable</button></div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div
+          style="display:flex;align-items:center;gap:14px;padding:12px;background:#F0FDF4;border-radius:10px;border-left:3px solid var(--success);border-top-left-radius:0;border-bottom-left-radius:0">
+          <div style="text-align:center;min-width:56px">
+            <div style="font-size:.72rem;color:var(--muted)">09:00</div>
+            <div style="font-size:.72rem;color:var(--muted)">10:00</div>
+          </div>
+          <div style="flex:1">
+            <div style="font-weight:700;font-size:.88rem">Mathematics – Grade 10A</div>
+            <div style="font-size:.77rem;color:var(--muted)">Room 201 · 32 students</div>
+          </div>
+          <span class="pill pill-green">Completed</span>
+        </div>
+        <div
+          style="display:flex;align-items:center;gap:14px;padding:12px;background:#EEF2FF;border-radius:10px;border-left:3px solid var(--p);border-top-left-radius:0;border-bottom-left-radius:0">
+          <div style="text-align:center;min-width:56px">
+            <div style="font-size:.72rem;color:var(--muted)">11:15</div>
+            <div style="font-size:.72rem;color:var(--muted)">12:15</div>
+          </div>
+          <div style="flex:1">
+            <div style="font-weight:700;font-size:.88rem">Statistics – Grade 12</div>
+            <div style="font-size:.77rem;color:var(--muted)">Room 305 · 30 students</div>
+          </div>
+          <span class="pill pill-blue">In Progress</span>
+        </div>
+        <div
+          style="display:flex;align-items:center;gap:14px;padding:12px;background:var(--bg);border-radius:10px;border-left:3px solid var(--border);border-top-left-radius:0;border-bottom-left-radius:0">
+          <div style="text-align:center;min-width:56px">
+            <div style="font-size:.72rem;color:var(--muted)">02:00</div>
+            <div style="font-size:.72rem;color:var(--muted)">03:00</div>
+          </div>
+          <div style="flex:1">
+            <div style="font-weight:700;font-size:.88rem">Algebra – Grade 9A</div>
+            <div style="font-size:.77rem;color:var(--muted)">Room 104 · 34 students</div>
+          </div>
+          <span class="pill" style="background:#F1F5F9;color:#475569">Upcoming</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sec-attendance" class="section">
+    <div class="card">
+      <div class="card-hdr">
+        <span class="card-title"><i class="fas fa-user-check" style="margin-right:6px;color:var(--p)"></i>Mark
+          Attendance</span>
+        <button class="btn btn-primary btn-sm"><i class="fas fa-save" style="margin-right:4px"></i>Save
+          Attendance</button>
+      </div>
+      <div class="att-controls">
+        <select class="form-select" style="flex:1;min-width:150px">
+          <option>Mathematics – Grade 10A</option>
+          <option>Physics – Grade 11B</option>
+          <option>Statistics – Grade 12</option>
+          <option>Algebra – Grade 9A</option>
+        </select>
+        <input type="date" class="form-input" value="2026-04-08" style="width:150px">
+        <button class="btn btn-outline btn-sm"><i class="fas fa-check-double" style="margin-right:4px"></i>Mark All
+          Present</button>
+      </div>
+      <div class="att-summary">
+        <div class="att-stat g">
+          <div class="n" id="pCount">0</div>
+          <div class="l">Present</div>
+        </div>
+        <div class="att-stat r">
+          <div class="n" id="aCount">0</div>
+          <div class="l">Absent</div>
+        </div>
+        <div class="att-stat y">
+          <div class="n" id="lCount">0</div>
+          <div class="l">Late</div>
+        </div>
+        <div class="att-stat">
+          <div class="n">32</div>
+          <div class="l">Total</div>
+        </div>
+      </div>
+      <div class="att-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Student</th>
+              <th>Roll No.</th>
+              <th>Status</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody id="attBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="sec-assignments" class="section">
+    <div class="section-two-col">
+      <div>
+        <div class="card">
+          <div class="card-hdr"><span class="card-title"><i class="fas fa-file-upload"
+                style="margin-right:6px;color:var(--p)"></i>Upload Assignment</span></div>
+          <div class="upload-area" onclick="">
+            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="upload-title">Drop files here or click to upload</div>
+            <div class="upload-sub">PDF, DOCX, PPTX up to 50MB</div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group"><label class="form-label">Assignment Title</label><input class="form-input"
+                placeholder="e.g. Quadratic Equations – Chapter 5"></div>
+            <div class="form-group"><label class="form-label">Subject / Class</label>
+              <select class="form-select">
+                <option>Mathematics – Grade 10A</option>
+                <option>Physics – Grade 11B</option>
+                <option>Statistics – Grade 12</option>
+                <option>Algebra – Grade 9A</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="form-label">Due Date</label><input type="date" class="form-input"
+                value="2026-04-15"></div>
+            <div class="form-group"><label class="form-label">Max Marks</label><input class="form-input" type="number"
+                placeholder="100"></div>
+            <div class="form-group full"><label class="form-label">Instructions / Description</label><textarea
+                class="form-textarea" placeholder="Describe the assignment requirements..."></textarea></div>
+            <div class="form-group"><label class="form-label">Assignment Type</label>
+              <select class="form-select">
+                <option>Homework</option>
+                <option>Quiz</option>
+                <option>Project</option>
+                <option>Lab Report</option>
+                <option>Essay</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="form-label">Visibility</label>
+              <select class="form-select">
+                <option>Publish Now</option>
+                <option>Save as Draft</option>
+                <option>Schedule</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-primary" style="flex:1"><i class="fas fa-paper-plane"
+                style="margin-right:6px"></i>Publish Assignment</button>
+            <button class="btn btn-outline">Save Draft</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">Recent Assignments</span><a
+              style="font-size:.8rem;color:var(--p);text-decoration:none;cursor:pointer">View All</a></div>
+          <div class="recent-uploads">
+            <div class="upload-item">
+              <div class="upload-item-left">
+                <div class="file-icon"><i class="fas fa-file-pdf"></i></div>
+                <div>
+                  <div class="file-name">Quadratic Equations – Ch5.pdf</div>
+                  <div class="file-meta">Grade 10A · Due Apr 12 · 100 marks</div>
+                </div>
+              </div>
+              <div class="upload-item-right"><span class="badge badge-pending">Pending</span><button
+                  class="btn btn-outline btn-sm"><i class="fas fa-edit"></i></button></div>
+            </div>
+            <div class="upload-item">
+              <div class="upload-item-left">
+                <div class="file-icon" style="background:#ECFDF5;color:var(--success)"><i class="fas fa-file-word"></i>
+                </div>
+                <div>
+                  <div class="file-name">Optics Lab Report.docx</div>
+                  <div class="file-meta">Grade 11B · Due Apr 8 · 50 marks</div>
+                </div>
+              </div>
+              <div class="upload-item-right"><span class="badge badge-graded">Graded</span><button
+                  class="btn btn-outline btn-sm"><i class="fas fa-edit"></i></button></div>
+            </div>
+            <div class="upload-item">
+              <div class="upload-item-left">
+                <div class="file-icon" style="background:#FFFBEB;color:var(--warning)"><i
+                    class="fas fa-file-powerpoint"></i></div>
+                <div>
+                  <div class="file-name">Statistics Project Presentation</div>
+                  <div class="file-meta">Grade 12 · Due Apr 20 · 80 marks</div>
+                </div>
+              </div>
+              <div class="upload-item-right"><span class="badge badge-new">New</span><button
+                  class="btn btn-outline btn-sm"><i class="fas fa-edit"></i></button></div>
+            </div>
+            <div class="upload-item">
+              <div class="upload-item-left">
+                <div class="file-icon"><i class="fas fa-file-pdf"></i></div>
+                <div>
+                  <div class="file-name">Algebra Worksheet – Ch3.pdf</div>
+                  <div class="file-meta">Grade 9A · Due Apr 10 · 30 marks</div>
+                </div>
+              </div>
+              <div class="upload-item-right"><span class="badge badge-pending">Pending</span><button
+                  class="btn btn-outline btn-sm"><i class="fas fa-edit"></i></button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">Submission Stats</span></div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:5px"><span>Quadratic
+                  Equations</span><span style="font-weight:700">24 / 32</span></div>
+              <div style="background:var(--bg);border-radius:20px;height:7px">
+                <div style="background:var(--p);width:75%;border-radius:20px;height:100%"></div>
+              </div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:5px"><span>Optics Lab
+                  Report</span><span style="font-weight:700">28 / 28</span></div>
+              <div style="background:var(--bg);border-radius:20px;height:7px">
+                <div style="background:var(--success);width:100%;border-radius:20px;height:100%"></div>
+              </div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:5px"><span>Algebra
+                  Worksheet</span><span style="font-weight:700">18 / 34</span></div>
+              <div style="background:var(--bg);border-radius:20px;height:7px">
+                <div style="background:var(--warning);width:53%;border-radius:20px;height:100%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sec-students" class="section">
+    <div class="card">
+      <div class="card-hdr">
+        <span class="card-title"><i class="fas fa-users" style="margin-right:6px;color:var(--p)"></i>Student List</span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div class="view-toggle">
+            <button class="vt-btn active" id="gridBtn" onclick="setView('grid')"><i
+                class="fas fa-th-large"></i></button>
+            <button class="vt-btn" id="listBtn" onclick="setView('list')"><i class="fas fa-list"></i></button>
+          </div>
+          <button class="btn btn-primary btn-sm"><i class="fas fa-user-plus" style="margin-right:4px"></i>Add
+            Student</button>
+        </div>
+      </div>
+      <div class="student-controls">
+        <div class="search-box"><i class="fas fa-search"></i><input placeholder="Search students..."></div>
+        <select class="filter-select">
+          <option>All Classes</option>
+          <option>Grade 10A</option>
+          <option>Grade 11B</option>
+          <option>Grade 12</option>
+          <option>Grade 9A</option>
+        </select>
+        <select class="filter-select">
+          <option>All Status</option>
+          <option>Good Standing</option>
+          <option>At Risk</option>
+          <option>Warning</option>
+        </select>
+        <button class="btn btn-outline btn-sm"><i class="fas fa-download" style="margin-right:4px"></i>Export</button>
+      </div>
+
+      <div class="student-grid grid-view" id="studentGrid">
+        <div class="student-card">
+          <div class="s-av purple">AK</div>
+          <div class="s-name">Aiden Kumar</div>
+          <div class="s-roll">Roll #01 · Grade 10A</div><span class="s-status good">Good Standing</span>
+          <div class="s-metrics">
+            <div class="s-metric">
+              <div class="v">94%</div>
+              <div class="k">Attend.</div>
+            </div>
+            <div class="s-metric">
+              <div class="v">88</div>
+              <div class="k">Avg Mark</div>
+            </div>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="s-av blue">PS</div>
+          <div class="s-name">Priya Sharma</div>
+          <div class="s-roll">Roll #02 · Grade 10A</div><span class="s-status good">Good Standing</span>
+          <div class="s-metrics">
+            <div class="s-metric">
+              <div class="v">97%</div>
+              <div class="k">Attend.</div>
+            </div>
+            <div class="s-metric">
+              <div class="v">95</div>
+              <div class="k">Avg Mark</div>
+            </div>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="s-av amber">MR</div>
+          <div class="s-name">Marcus Reid</div>
+          <div class="s-roll">Roll #03 · Grade 11B</div><span class="s-status warn">Warning</span>
+          <div class="s-metrics">
+            <div class="s-metric">
+              <div class="v">78%</div>
+              <div class="k">Attend.</div>
+            </div>
+            <div class="s-metric">
+              <div class="v">61</div>
+              <div class="k">Avg Mark</div>
+            </div>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="s-av green">LT</div>
+          <div class="s-name">Lily Tanaka</div>
+          <div class="s-roll">Roll #04 · Grade 12</div><span class="s-status good">Good Standing</span>
+          <div class="s-metrics">
+            <div class="s-metric">
+              <div class="v">99%</div>
+              <div class="k">Attend.</div>
+            </div>
+            <div class="s-metric">
+              <div class="v">92</div>
+              <div class="k">Avg Mark</div>
+            </div>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="s-av red">JO</div>
+          <div class="s-name">James Obi</div>
+          <div class="s-roll">Roll #05 · Grade 9A</div><span class="s-status risk">At Risk</span>
+          <div class="s-metrics">
+            <div class="s-metric">
+              <div class="v">65%</div>
+              <div class="k">Attend.</div>
+            </div>
+            <div class="s-metric">
+              <div class="v">48</div>
+              <div class="k">Avg Mark</div>
+            </div>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="s-av pink">NP</div>
+          <div class="s-name">Nina Patel</div>
+          <div class="s-roll">Roll #06 · Grade 10A</div><span class="s-status good">Good Standing</span>
+          <div class="s-metrics">
+            <div class="s-metric">
+              <div class="v">91%</div>
+              <div class="k">Attend.</div>
+            </div>
+            <div class="s-metric">
+              <div class="v">84</div>
+              <div class="k">Avg Mark</div>
+            </div>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="s-av teal">EW</div>
+          <div class="s-name">Ethan Walsh</div>
+          <div class="s-roll">Roll #07 · Grade 11B</div><span class="s-status good">Good Standing</span>
+          <div class="s-metrics">
+            <div class="s-metric">
+              <div class="v">89%</div>
+              <div class="k">Attend.</div>
+            </div>
+            <div class="s-metric">
+              <div class="v">77</div>
+              <div class="k">Avg Mark</div>
+            </div>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="s-av indigo">SC</div>
+          <div class="s-name">Sofia Chen</div>
+          <div class="s-roll">Roll #08 · Grade 12</div><span class="s-status good">Good Standing</span>
+          <div class="s-metrics">
+            <div class="s-metric">
+              <div class="v">96%</div>
+              <div class="k">Attend.</div>
+            </div>
+            <div class="s-metric">
+              <div class="v">91</div>
+              <div class="k">Avg Mark</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <table class="list-table" id="studentList" style="margin-top:4px">
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Roll No.</th>
+            <th>Class</th>
+            <th>Attendance</th>
+            <th>Avg Mark</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="avatar-cell">
+                <div class="av purple">AK</div>Aiden Kumar
+              </div>
+            </td>
+            <td>#01</td>
+            <td>Grade 10A</td>
+            <td>94%</td>
+            <td>88</td>
+            <td><span class="pill pill-green">Good</span></td>
+            <td>
+              <div style="display:flex;gap:5px"><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-eye"></i></button><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-edit"></i></button></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="avatar-cell">
+                <div class="av blue">PS</div>Priya Sharma
+              </div>
+            </td>
+            <td>#02</td>
+            <td>Grade 10A</td>
+            <td>97%</td>
+            <td>95</td>
+            <td><span class="pill pill-green">Good</span></td>
+            <td>
+              <div style="display:flex;gap:5px"><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-eye"></i></button><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-edit"></i></button></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="avatar-cell">
+                <div class="av amber">MR</div>Marcus Reid
+              </div>
+            </td>
+            <td>#03</td>
+            <td>Grade 11B</td>
+            <td>78%</td>
+            <td>61</td>
+            <td><span class="pill pill-amber">Warning</span></td>
+            <td>
+              <div style="display:flex;gap:5px"><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-eye"></i></button><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-edit"></i></button></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="avatar-cell">
+                <div class="av green">LT</div>Lily Tanaka
+              </div>
+            </td>
+            <td>#04</td>
+            <td>Grade 12</td>
+            <td>99%</td>
+            <td>92</td>
+            <td><span class="pill pill-green">Good</span></td>
+            <td>
+              <div style="display:flex;gap:5px"><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-eye"></i></button><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-edit"></i></button></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="avatar-cell">
+                <div class="av red">JO</div>James Obi
+              </div>
+            </td>
+            <td>#05</td>
+            <td>Grade 9A</td>
+            <td>65%</td>
+            <td>48</td>
+            <td><span class="badge" style="background:#FEE2E2;color:#991B1B">At Risk</span></td>
+            <td>
+              <div style="display:flex;gap:5px"><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-eye"></i></button><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-edit"></i></button></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="avatar-cell">
+                <div class="av pink">NP</div>Nina Patel
+              </div>
+            </td>
+            <td>#06</td>
+            <td>Grade 10A</td>
+            <td>91%</td>
+            <td>84</td>
+            <td><span class="pill pill-green">Good</span></td>
+            <td>
+              <div style="display:flex;gap:5px"><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-eye"></i></button><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-edit"></i></button></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="avatar-cell">
+                <div class="av teal">EW</div>Ethan Walsh
+              </div>
+            </td>
+            <td>#07</td>
+            <td>Grade 11B</td>
+            <td>89%</td>
+            <td>77</td>
+            <td><span class="pill pill-green">Good</span></td>
+            <td>
+              <div style="display:flex;gap:5px"><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-eye"></i></button><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-edit"></i></button></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="avatar-cell">
+                <div class="av indigo">SC</div>Sofia Chen
+              </div>
+            </td>
+            <td>#08</td>
+            <td>Grade 12</td>
+            <td>96%</td>
+            <td>91</td>
+            <td><span class="pill pill-green">Good</span></td>
+            <td>
+              <div style="display:flex;gap:5px"><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-eye"></i></button><button class="btn btn-outline btn-sm"><i
+                    class="fas fa-edit"></i></button></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<script>
+  const students = [
+    { n: 'Aiden Kumar', r: '01', av: 'AK', c: 'purple' },
+    { n: 'Priya Sharma', r: '02', av: 'PS', c: 'blue' },
+    { n: 'Marcus Reid', r: '03', av: 'MR', c: 'amber' },
+    { n: 'Lily Tanaka', r: '04', av: 'LT', c: 'green' },
+    { n: 'James Obi', r: '05', av: 'JO', c: 'red' },
+    { n: 'Nina Patel', r: '06', av: 'NP', c: 'pink' },
+    { n: 'Ethan Walsh', r: '07', av: 'EW', c: 'teal' },
+    { n: 'Sofia Chen', r: '08', av: 'SC', c: 'indigo' },
+    { n: 'Ravi Mehta', r: '09', av: 'RM', c: 'purple' },
+    { n: 'Clara Davis', r: '10', av: 'CD', c: 'blue' },
+    { n: 'Omar Farhan', r: '11', av: 'OF', c: 'amber' },
+    { n: 'Yuki Ito', r: '12', av: 'YI', c: 'green' },
+  ];
+  const attState = {};
+  function buildAtt() {
+    const tbody = document.getElementById('attBody');
+    tbody.innerHTML = '';
+    students.forEach((s, i) => {
+      if (!attState[i]) attState[i] = 'p';
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${i + 1}</td><td><div class="avatar-cell"><div class="av ${s.c}">${s.av}</div>${s.n}</div></td><td>#${s.r}</td>
+    <td><div class="att-toggle">
+      <button class="att-btn p ${attState[i] === 'p' ? 'active-p' : ''}" onclick="setAtt(${i},'p')">P</button>
+      <button class="att-btn a ${attState[i] === 'a' ? 'active-a' : ''}" onclick="setAtt(${i},'a')">A</button>
+      <button class="att-btn l ${attState[i] === 'l' ? 'active-l' : ''}" onclick="setAtt(${i},'l')">L</button>
+    </div></td>
+    <td><input placeholder="Note..." style="border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:.78rem;width:110px;background:var(--card);color:var(--text);outline:none"></td>`;
+      tbody.appendChild(tr);
+    });
+    updateCounts();
+  }
+  function setAtt(i, v) {
+    attState[i] = v;
+    buildAtt();
+  }
+  function updateCounts() {
+    let p = 0, a = 0, l = 0;
+    Object.values(attState).forEach(v => { if (v === 'p') p++; else if (v === 'a') a++; else l++; });
+    document.getElementById('pCount').textContent = p;
+    document.getElementById('aCount').textContent = a;
+    document.getElementById('lCount').textContent = l;
+  }
+
+  function showTab(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('sec-' + id).classList.add('visible');
+    btn.classList.add('active');
+    const titles = { classes: 'Class Management', attendance: 'Attendance', assignments: 'Assignments', students: 'Student List' };
+    const subs = { classes: 'Manage your classes and schedule', attendance: 'Mark and track student attendance', assignments: 'Upload and manage assignments', students: 'View and manage all students' };
+    document.getElementById('pageTitle').textContent = titles[id];
+    document.getElementById('pageSub').textContent = subs[id];
+    if (id === 'attendance') buildAtt();
+  }
+  function setTab(id, el) {
+    const btns = document.querySelectorAll('.tab');
+    const map = { classes: 0, attendance: 1, assignments: 2, students: 3 };
+    if (map[id] !== undefined) showTab(id, btns[map[id]]);
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    el.classList.add('active');
+    closeSB();
+  }
+  function setView(v) {
+    const grid = document.getElementById('studentGrid');
+    const list = document.getElementById('studentList');
+    document.getElementById('gridBtn').classList.toggle('active', v === 'grid');
+    document.getElementById('listBtn').classList.toggle('active', v === 'list');
+    if (v === 'grid') { grid.classList.remove('hidden'); list.classList.remove('show'); }
+    else { grid.classList.add('hidden'); list.classList.add('show'); }
+  }
+  function toggleSB() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('show');
+  }
+  function closeSB() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('show');
+  }
+  window.addEventListener('resize', () => { if (window.innerWidth > 768) closeSB(); });
+</script>
