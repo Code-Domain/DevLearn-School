@@ -102,3 +102,17 @@ main {
         border-radius: 5px;
     }
 }
+
+@media (max-width:430px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+        color: #c5c4c4;
+    }
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+
+    .hero{
+        height: 100vh;
+    }
+}
